@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "app_id": "app_43ae03f9-66d3-42c9-84eb-35c38a84d82d",
+      "org_id": "orga_ea465ce5-20d0-4842-b1ef-a53599711822",
+      "deploy_url": "https://github.com/Serli/iana-agentic-workflows.git",
+      "git_ssh_url": "https://github.com/Serli/iana-agentic-workflows.git",
+      "name": "rag-api",
+      "alias": "rag-api"
+    }
+  ]
+}
