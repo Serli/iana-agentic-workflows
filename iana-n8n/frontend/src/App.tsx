@@ -1,9 +1,7 @@
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
-import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2 } from 'lucide-react';
+import { ingestFile, queryDocuments, setApiUrl, getApiUrl, REMOTE_API_URL, LOCAL_API_URL } from './services/api';
+import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2, Server } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-const API_BASE_URL = 'http://localhost:8000';
 
 interface ChunkResponse {
   content: string;
@@ -12,6 +10,7 @@ interface ChunkResponse {
 }
 
 function App() {
+  const [apiUrl, setApiUrlState] = useState(getApiUrl());
   const [file, setFile] = useState<File | null>(null);
   const [ingesting, setIngesting] = useState(false);
   const [ingestStatus, setIngestStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
@@ -22,6 +21,11 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUrlChange = (url: string) => {
+    setApiUrl(url);
+    setApiUrlState(url);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -35,14 +39,9 @@ function App() {
     setIngesting(true);
     setIngestStatus(null);
     
-    const formData = new FormData();
-    formData.append('file', file);
-
     try {
-      const response = await axios.post(`${API_BASE_URL}/ingest`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      setIngestStatus({ type: 'success', msg: `Succès : ${response.data.num_chunks} segments indexés.` });
+      const data = await ingestFile(file);
+      setIngestStatus({ type: 'success', msg: `Succès : ${data.num_chunks} segments indexés.` });
       setFile(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (err: any) {
@@ -59,8 +58,8 @@ function App() {
     setSearching(true);
     setError(null);
     try {
-      const response = await axios.post(`${API_BASE_URL}/query`, { question: query, top_k: 4 });
-      setResults(response.data.results);
+      const data = await queryDocuments(query, 4);
+      setResults(data.results);
     } catch (err: any) {
       setError(err.response?.data?.detail || "Erreur lors de la recherche.");
     } finally {
@@ -71,11 +70,33 @@ function App() {
   return (
     <div className="flex-col">
       <header style={{ background: 'var(--maif-blue)', padding: '1.5rem 0', color: 'white', marginBottom: '2rem', boxShadow: 'var(--shadow)' }}>
-        <div className="container" style={{ padding: '0 2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <FileText size={32} />
-          <div>
-            <h1 style={{ color: 'white', fontSize: '1.5rem', margin: 0 }}>Atelier IANA</h1>
-            <p style={{ opacity: 0.8, fontSize: '0.9rem' }}>RAG API Intelligence Documentaire (Kreuzberg & ChromaDB)</p>
+        <div className="container" style={{ padding: '0 2rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <FileText size={32} />
+            <div>
+              <h1 style={{ color: 'white', fontSize: '1.5rem', margin: 0 }}>Atelier IANA</h1>
+              <p style={{ opacity: 0.8, fontSize: '0.9rem' }}>RAG API Intelligence Documentaire (Kreuzberg & ChromaDB)</p>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.1)', padding: '0.5rem 0.8rem', borderRadius: '8px' }}>
+            <Server size={18} />
+            <select 
+              value={apiUrl}
+              onChange={(e) => handleUrlChange(e.target.value)}
+              style={{
+                background: 'transparent',
+                color: 'white',
+                border: 'none',
+                outline: 'none',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '0.9rem'
+              }}
+            >
+              <option style={{ color: '#333' }} value={REMOTE_API_URL}>Remote (Clever Cloud)</option>
+              <option style={{ color: '#333' }} value={LOCAL_API_URL}>Local (localhost:8000)</option>
+            </select>
           </div>
         </div>
       </header>
