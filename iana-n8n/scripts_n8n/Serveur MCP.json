@@ -1,0 +1,72 @@
+{
+  "name": "Serveur MCP",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "46bb489d-ce0c-46d5-a854-6cd2c0dcdd81"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "14771aa7-68fa-453c-b73c-7bc9b4cd03d4",
+      "name": "query_rag",
+      "webhookId": "46bb489d-ce0c-46d5-a854-6cd2c0dcdd81"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8000/query",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "question",
+              "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('parameters0_Value', ``, 'string') }}"
+            },
+            {
+              "name": "top_k",
+              "value": "3"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        96,
+        208
+      ],
+      "id": "616f0ce4-0830-4536-9023-b9f39fb7b99c",
+      "name": "query_rag1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "query_rag1": {
+      "ai_tool": [
+        [
+          {
+            "node": "query_rag",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "eff48bd0-6ded-4bda-951b-1ff600630b15",
+  "meta": {
+    "instanceId": "8794b1f64b274f77545e5bb41ba752a6ccb9ce6d93ec158b59a6b58a75514bef"
+  },
+  "id": "uo6OMRNT99MyQu9r",
+  "tags": []
+}
