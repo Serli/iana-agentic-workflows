@@ -1,3 +1,4 @@
+import os
 import httpx
 from fastmcp import FastMCP
 from typing import Optional, List, Dict, Any
@@ -6,7 +7,7 @@ from typing import Optional, List, Dict, Any
 mcp = FastMCP("IANA RAG")
 
 # Backend configuration
-BACKEND_URL = "http://localhost:8000"
+BACKEND_URL = os.environ.get("BACKEND_URL", "http://localhost:8000")
 
 @mcp.tool()
 async def query_rag(question: str, top_k: int = 3) -> str:
@@ -51,5 +52,5 @@ async def query_rag(question: str, top_k: int = 3) -> str:
             return f"An unexpected error occurred: {str(e)}"
 
 if __name__ == "__main__":
-    # Start the MCP server
-    mcp.run(transport="streamable-http", port=10000)
+    port = int(os.environ.get("PORT", 10000))
+    mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
