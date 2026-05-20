@@ -27,6 +27,8 @@ async def query_rag(question: str, top_k: int = 3) -> str:
             )
             response.raise_for_status()
             data = response.json()
+
+            print(f"Resultats retournés par le backend: {data}")
             
             # Format the results into a readable string for the model
             if not data.get("results"):
