@@ -53,4 +53,5 @@ async def query_rag(question: str, top_k: int = 3) -> str:
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
+    print(f"Le backend est à l'adresse {BACKEND_URL}")
     mcp.run(transport="streamable-http", host="0.0.0.0", port=port)
