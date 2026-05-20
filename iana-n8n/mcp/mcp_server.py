@@ -18,6 +18,9 @@ async def query_rag(question: str, top_k: int = 3) -> str:
         question: The natural language question to search for.
         top_k: The number of top relevant chunks to retrieve (default is 3).
     """
+
+    print(f"Question reçue: {question}")
+    print(f"Top k: {top_k}")
     async with httpx.AsyncClient() as client:
         try:
             response = await client.post(
