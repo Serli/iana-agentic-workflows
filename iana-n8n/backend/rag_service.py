@@ -109,3 +109,19 @@ class RAGService:
         formatted_results.sort(key=lambda x: x["score"], reverse=True)
             
         return formatted_results
+
+    def clear_database(self, upload_dir: str = "uploads"):
+        """Supprime la collection ChromaDB et tous les fichiers PDF uploadés."""
+        # 1. Supprimer et recréer la collection ChromaDB
+        self.chroma_client.delete_collection(name="documents")
+        self.collection = self.chroma_client.get_or_create_collection(name="documents")
+        
+        # 2. Supprimer les fichiers PDF dans le répertoire d'upload
+        if os.path.exists(upload_dir):
+            for filename in os.listdir(upload_dir):
+                if filename.lower().endswith(".pdf"):
+                    file_path = os.path.join(upload_dir, filename)
+                    try:
+                        os.remove(file_path)
+                    except Exception as e:
+                        print(f"Erreur lors de la suppression du fichier {file_path}: {e}")

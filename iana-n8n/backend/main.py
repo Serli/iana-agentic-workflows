@@ -72,6 +72,15 @@ async def query_rag(request: QueryRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/clear")
+async def clear_system():
+    """Purge la base de données vectorielle et supprime les fichiers uploadés."""
+    try:
+        rag_service.clear_database(UPLOAD_DIR)
+        return {"message": "Base Chroma et fichiers uploadés supprimés avec succès"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
