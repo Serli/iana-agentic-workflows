@@ -28,6 +28,8 @@ async def query_rag(question: str, top_k: int = 3) -> str:
                 json={"question": question, "top_k": top_k},
                 timeout=30.0
             )
+
+            print(f"Réponse brute du backend: {response}")
             response.raise_for_status()
             data = response.json()
 
