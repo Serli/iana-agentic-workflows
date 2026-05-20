@@ -4,7 +4,7 @@ Une solution de RAG (Retrieval-Augmented Generation) complète, performante et m
 
 ## 🚀 Fonctionnalités
 
-- **Interface Utilisateur Moderne** : Dashboard React élégant avec le thème "Bleu MAIF", animations fluides et retour d'état en temps réel.
+- **Interface Utilisateur Moderne** : Dashboard React élégant avec le thème "Bleu", animations fluides et retour d'état en temps réel.
 - **Ingestion Intelligente** : Extraction de texte, chunking optimisé et génération d'embeddings multilingues à partir de fichiers PDF via **Kreuzberg**.
 - **Recherche Sémantique Avancée** : Recherche ultra-rapide avec calcul de score de similarité et tri par pertinence.
 - **Métadonnées Enrichies** : Affichage de la source et des numéros de pages pour chaque résultat trouvé.
@@ -92,7 +92,7 @@ AtelierIANA/
 ├── frontend/           # Application React
 │   ├── src/
 │   │   ├── App.tsx     # Composant principal (UI RAG)
-│   │   └── index.css   # Design System & Thème Bleu MAIF
+│   │   └── index.css   # Design System & Thème Bleu
 │   └── vite.config.ts  # Configuration Vite
 ├── uploads/            # Fichiers PDF temporaires
 └── README.md           # Ce document
