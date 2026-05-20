@@ -31,9 +31,5 @@ export const queryDocuments = async (question: string, top_k: number = 4) => {
   const response = await api.post('/query', { question, top_k });
   return response.data;
 };
-export const clearDatabase = async () => {
-  const response = await api.post('/clear');
-  return response.data;
-};
 
 export default api;

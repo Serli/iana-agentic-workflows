@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { ingestFile, queryDocuments, clearDatabase, setApiUrl, getApiUrl, REMOTE_API_URL, LOCAL_API_URL } from './services/api';
-import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2, Server, Trash2 } from 'lucide-react';
+import { ingestFile, queryDocuments, setApiUrl, getApiUrl, REMOTE_API_URL, LOCAL_API_URL } from './services/api';
+import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2, Server } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChunkResponse {
@@ -19,9 +19,6 @@ function App() {
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState<ChunkResponse[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  const [showClearConfirm, setShowClearConfirm] = useState(false);
-  const [isClearing, setIsClearing] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -70,25 +67,6 @@ function App() {
     }
   };
 
-  const onClearDatabase = async () => {
-    setIsClearing(true);
-    try {
-      await clearDatabase();
-      // Reset all states
-      setResults([]);
-      setQuery('');
-      setFile(null);
-      setIngestStatus(null);
-      setError(null);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    } catch (err: any) {
-      setError(err.response?.data?.detail || "Erreur lors de la suppression de la base.");
-    } finally {
-      setIsClearing(false);
-      setShowClearConfirm(false);
-    }
-  };
-
   return (
     <div className="flex-col">
       <header style={{ background: 'var(--maif-blue)', padding: '1.5rem 0', color: 'white', marginBottom: '2rem', boxShadow: 'var(--shadow)' }}>
@@ -101,106 +79,27 @@ function App() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.1)', padding: '0.5rem 0.8rem', borderRadius: '8px' }}>
-              <Server size={18} />
-              <select 
-                value={apiUrl}
-                onChange={(e) => handleUrlChange(e.target.value)}
-                style={{
-                  background: 'transparent',
-                  color: 'white',
-                  border: 'none',
-                  outline: 'none',
-                  cursor: 'pointer',
-                  fontWeight: 600,
-                  fontSize: '0.9rem'
-                }}
-              >
-                <option style={{ color: '#333' }} value={REMOTE_API_URL}>Remote (Clever Cloud)</option>
-                <option style={{ color: '#333' }} value={LOCAL_API_URL}>Local (localhost:8000)</option>
-              </select>
-            </div>
-            
-            <button 
-              onClick={() => setShowClearConfirm(true)}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(255,255,255,0.1)', padding: '0.5rem 0.8rem', borderRadius: '8px' }}>
+            <Server size={18} />
+            <select 
+              value={apiUrl}
+              onChange={(e) => handleUrlChange(e.target.value)}
               style={{
-                background: 'rgba(239, 68, 68, 0.2)',
-                border: '1px solid rgba(239, 68, 68, 0.5)',
-                color: '#fca5a5',
-                padding: '0.5rem 0.8rem',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
+                background: 'transparent',
+                color: 'white',
+                border: 'none',
+                outline: 'none',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)';
+                fontWeight: 600,
+                fontSize: '0.9rem'
               }}
             >
-              <Trash2 size={18} />
-              <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>Purger</span>
-            </button>
+              <option style={{ color: '#333' }} value={REMOTE_API_URL}>Remote (Clever Cloud)</option>
+              <option style={{ color: '#333' }} value={LOCAL_API_URL}>Local (localhost:8000)</option>
+            </select>
           </div>
         </div>
       </header>
-
-      <AnimatePresence>
-        {showClearConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{
-              position: 'fixed',
-              top: 0, left: 0, right: 0, bottom: 0,
-              background: 'rgba(0, 0, 0, 0.6)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 1000
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="card"
-              style={{ maxWidth: '400px', width: '90%', margin: '0 auto' }}
-            >
-              <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--maif-red)', marginBottom: '1rem' }}>
-                <AlertCircle size={24} />
-                Attention
-              </h2>
-              <p style={{ marginBottom: '1.5rem', color: 'var(--text-secondary)' }}>
-                Êtes-vous sûr de vouloir supprimer tous les documents de la base ? Cette action est irréversible et supprimera également les fichiers originaux.
-              </p>
-              <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-                <button 
-                  onClick={() => setShowClearConfirm(false)} 
-                  disabled={isClearing}
-                  style={{ padding: '0.5rem 1rem', borderRadius: '4px', border: '1px solid var(--border)', background: 'transparent', cursor: 'pointer' }}
-                >
-                  Annuler
-                </button>
-                <button 
-                  onClick={onClearDatabase} 
-                  disabled={isClearing}
-                  style={{ padding: '0.5rem 1rem', borderRadius: '4px', border: 'none', background: 'var(--maif-red)', color: 'white', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-                >
-                  {isClearing ? <Loader2 className="animate-spin" size={16} /> : <Trash2 size={16} />}
-                  Confirmer
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       <main className="container">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
