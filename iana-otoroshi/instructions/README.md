@@ -478,9 +478,9 @@ Otoroshi capture nativement :
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/node/eventstream`
 
 ![Flux d'événements](./images/21-observability-1.png)
-![Détail d'un événement](./images/22-observability-2.png.png)
+![Détail d'un événement](./images/22-observability-3.png)
 
-Vous pouvez filtrer le flux par type (`auditEvent`, `WorkflowRunEvent`, `GatewayEvent`, etc.) et inspecter chaque événement individuellement.
+Vous pouvez filtrer le flux par type (`AuditEvent`, `WorkflowRunEvent`, `GatewayEvent`, etc.) et inspecter chaque événement individuellement.
 
 > 💡 **Astuce** : pour ne voir que les appels LLM (prompt, réponse, tokens consommés, coût estimé, provider appelé…), filtrez sur le type **`LLMUsageAudit`**. C'est l'événement d'audit dédié émis par la LLM extension à chaque appel d'un provider IA — pratique pour valider en live ce qui sort de votre agent.
 
