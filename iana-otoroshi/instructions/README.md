@@ -641,7 +641,11 @@ Pas besoin d'input particulier — la question est portée par les instructions 
 
 ## Manifests fournis
 
-Le dossier [`./manifests`](./manifests) contient les **définitions JSON exportables** de toutes les entités créées dans ce guide. Vous pouvez les importer directement depuis le bouton **Import** présent en bas de chaque page d'édition d'entité Otoroshi :
+Le dossier [`./manifests`](./manifests) contient les **définitions JSON exportables** de toutes les entités créées dans ce guide. Vous pouvez les charger en une fois via le **Resources Loader** d'Otoroshi :
+
+> `<URL-backoffice-otoroshi>/bo/dashboard/resources-loader`
+
+Collez-y le contenu d'un ou plusieurs manifests, puis validez l'import.
 
 | Fichier | Entité |
 | --- | --- |
