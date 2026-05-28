@@ -10,7 +10,7 @@
   "description": "New Workflow",
   "metadata": {
     "created_at": "2026-05-28T11:50:41.145+02:00",
-    "updated_at": "2026-05-28T11:53:48.296+02:00"
+    "updated_at": "2026-05-28T15:51:31.256+02:00"
   },
   "tags": [],
   "config": {
@@ -27,7 +27,7 @@
             "description": "Serveur MCP permettant de rechercher dans des contrats d'assurance",
             "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
             "enabled": true,
-            "id": "23549544-dbdd-4548-a41c-0d34e782e71a",
+            "id": "0d154e63-c1b7-438d-8d05-e3928c9c4dea",
             "position": {
               "x": 570.439456380278,
               "y": -329.7162109888713
@@ -40,11 +40,12 @@
             "description": "Serveur MCP permettant de récupérer les risques naturels à une adresse",
             "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
             "enabled": true,
-            "id": "8f20018a-38fd-43d4-bdb1-ce43aa76de31",
+            "id": "2727550f-29ae-48c1-9d2c-febe0b6c8fbd",
             "position": {
               "x": 644.1330991552093,
               "y": -141.39856504922156
-            }
+            },
+            "customDisplayName": "MCP Tools"
           }
         ],
         "id": "a0d5307f-3d3d-4147-bf39-e54899391ac4",
@@ -57,6 +58,30 @@
         "kind": "extensions.com.cloud-apim.llm-extension.ai_agent",
         "enabled": true,
         "result": "agent_result"
+      },
+      {
+        "function": "core.http_client",
+        "args": {
+          "url": "https://md-to-pdf-iana.cleverapps.io/convert-and-store",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "body_json": {
+            "markdown": "${agent_result}"
+          },
+          "response_selector": "body_json.url"
+        },
+        "id": "0859e70c-9b38-4ea6-994e-fcb3c78e644a",
+        "position": {
+          "x": 530.6635760471752,
+          "y": 41.3442517452196
+        },
+        "name": "core.http_client",
+        "description": "Transforme et stocke le rapport en PDF",
+        "kind": "call",
+        "enabled": true,
+        "result": "pdf_link"
       }
     ],
     "returned": {
@@ -70,8 +95,8 @@
     },
     "returnedInformation": {
       "position": {
-        "x": 652,
-        "y": 41
+        "x": 830.6268747382388,
+        "y": 89.78163647469972
       }
     }
   },
