@@ -1,6 +1,6 @@
 # Workshop IA-NA 2026 — Agents IA & MCP avec Otoroshi
 
-Ce guide pas-à-pas accompagne les participants du workshop **IA-NA 2026** dans la mise en place d'agents IA s'appuyant sur le protocole **MCP** (Model Context Protocol), exposés et sécurisés via **Otoroshi**.
+Ce guide pas-à-pas accompagne les participants du workshop **IA-NA 2026** dans la mise en place d'agents IA s'appuyant sur le protocole **[MCP](https://modelcontextprotocol.io/)** (Model Context Protocol), exposés et sécurisés via **[Otoroshi](https://www.otoroshi.io/)** (et sa [LLM extension](https://cloud-apim.github.io/otoroshi-llm-extension/)).
 
 À l'issue du workshop, vous aurez construit **trois agents de complexité croissante** :
 
@@ -43,7 +43,7 @@ Le workshop peut se dérouler sur deux types d'infrastructures :
 
 ### Option A — Hébergé sur Clever Cloud (recommandé)
 
-Chaque participant dispose d'une **instance n8n** et d'une **instance Otoroshi** provisionnées sur Clever Cloud :
+Chaque participant dispose d'une **instance [n8n](https://n8n.io/)** et d'une **instance Otoroshi** provisionnées sur **[Clever Cloud](https://www.clever.cloud/)** :
 
 | Service | URL |
 | --- | --- |
@@ -67,7 +67,7 @@ Chaque participant dispose d'une **instance n8n** et d'une **instance Otoroshi**
 
 #### B.1 — Lancer Otoroshi via Docker (le plus rapide)
 
-L'image Docker `maif/otoroshi` embarque déjà la **LLM extension**. Une seule commande suffit :
+L'image Docker [`maif/otoroshi`](https://hub.docker.com/r/maif/otoroshi) embarque déjà la **LLM extension**. Une seule commande suffit :
 
 ```bash
 docker run -p "8080:8080" \
@@ -117,7 +117,7 @@ Le backoffice est ensuite accessible sur `http://otoroshi.oto.tools:8080` (login
 
 ## Endpoint Clever AI & clé d'API
 
-Le LLM utilisé pendant tout le workshop est **gracieusement fourni par Clever Cloud** via son service **Clever AI**. Vous n'avez donc pas besoin de fournir vos propres credentials OpenAI/Anthropic/etc.
+Le LLM utilisé pendant tout le workshop est **gracieusement fourni par [Clever Cloud](https://www.clever.cloud/)** via son service **[Clever AI](https://www.clever.cloud/clever-ai/)**. Vous n'avez donc pas besoin de fournir vos propres credentials OpenAI/Anthropic/etc.
 
 - **Endpoint OpenAI-compatible** :
   ```
@@ -668,6 +668,16 @@ Collez-y le contenu d'un ou plusieurs manifests, puis validez l'import.
 | `budget-apikey.json` | Budget IA par API key |
 
 > ⚠️ Pensez à adapter les IDs, les domaines (`${slug}`) et les références (`auth_module_ref`, etc.) à votre instance avant import.
+
+---
+
+## Liens utiles
+
+- **Otoroshi** — [otoroshi.io](https://www.otoroshi.io/) · [Documentation](https://maif.github.io/otoroshi/manual/) · [GitHub MAIF/otoroshi](https://github.com/MAIF/otoroshi)
+- **Otoroshi LLM Extension** — [Documentation Cloud APIM](https://cloud-apim.github.io/otoroshi-llm-extension/) · [Install guide](https://cloud-apim.github.io/otoroshi-llm-extension/docs/install) · [GitHub](https://github.com/cloud-apim/otoroshi-llm-extension)
+- **Clever Cloud** — [clever.cloud](https://www.clever.cloud/) · [Clever AI](https://www.clever.cloud/clever-ai/)
+- **n8n** — [n8n.io](https://n8n.io/)
+- **Model Context Protocol** — [modelcontextprotocol.io](https://modelcontextprotocol.io/) · [MCP Inspector](https://github.com/modelcontextprotocol/inspector)
 
 ---
 
