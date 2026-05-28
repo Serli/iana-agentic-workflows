@@ -1,0 +1,87 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "workflow_8ced10ea-76c1-46d3-9f3c-ab2a37f50b8b",
+  "name": "IANA RAG simple",
+  "description": "New Workflow",
+  "metadata": {
+    "created_at": "2026-05-27T22:32:21.933+02:00",
+    "updated_at": "2026-05-28T09:19:02.994+02:00"
+  },
+  "tags": [],
+  "config": {
+    "kind": "workflow",
+    "steps": [
+      {
+        "provider": "provider_5a3993f6-6cff-456a-9eb6-6cab80f081c5",
+        "instructions": "Tu es un agent spécialisé dans l'analyse de contrats d'assurance. \nTu as a ta disposition un connecteur MCP pour chercher dans des contrats d'assurance.\nTu vas répondre aux questions de l'utilisateurs sur ses contrats ",
+        "input": "${workflow_input.query || workflow_input.request.body_json.query}",
+        "inline_tools": [
+          {
+            "mcp_ref": "mcp-connector_d8d35607-aadc-4d6a-8543-c112e91569af",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de rechercher dans des contrats d'assurance",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "9cc256b5-ddfc-4d9d-b835-d983ecd4a242",
+            "position": {
+              "x": 624.8164971678228,
+              "y": -215.01464057764377
+            },
+            "customDisplayName": "MCP Tools"
+          }
+        ],
+        "id": "a0d5307f-3d3d-4147-bf39-e54899391ac4",
+        "position": {
+          "x": 244.2605460112597,
+          "y": -73.71482307358266
+        },
+        "name": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "description": "Agent spécialisé en contrats d'assurance",
+        "kind": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "enabled": true,
+        "result": "agent_result"
+      }
+    ],
+    "returned": {
+      "report": "${agent_result}"
+    },
+    "id": "start",
+    "breakpoint": false,
+    "position": {
+      "x": 12,
+      "y": 12
+    },
+    "returnedInformation": {
+      "position": {
+        "x": 652,
+        "y": 41
+      }
+    }
+  },
+  "test_payload": {
+    "query": "assurance habitation"
+  },
+  "orphans": {
+    "nodes": [],
+    "edges": []
+  },
+  "job": {
+    "enabled": false,
+    "kind": "ScheduledEvery",
+    "instantiation": "OneInstancePerOtoroshiInstance",
+    "initial_delay": 1000,
+    "interval": 60000,
+    "cron_expression": "",
+    "config": {
+      "name": "Job"
+    }
+  },
+  "functions": {},
+  "notes": [],
+  "kind": "plugins.otoroshi.io/Workflow"
+}

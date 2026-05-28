@@ -1,0 +1,195 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "new-teamsqdsqsdq"
+    ]
+  },
+  "id": "route_d2ce75e7c-c2c5-4268-a169-d7850da3a8c9",
+  "name": "IANA RAG Simple API",
+  "description": "A new route",
+  "tags": [],
+  "metadata": {
+    "created_at": "2026-05-28T09:10:58.001+02:00",
+    "updated_at": "2026-05-28T10:05:26.755+02:00"
+  },
+  "enabled": true,
+  "debug_flow": false,
+  "export_reporting": false,
+  "capture": false,
+  "groups": [
+    "default"
+  ],
+  "bound_listeners": [],
+  "frontend": {
+    "domains": [
+      "otoroshi-workshop-iana-2026-00.oto.tools/api"
+    ],
+    "strip_path": true,
+    "exact": false,
+    "headers": {},
+    "cookies": {},
+    "query": {},
+    "methods": []
+  },
+  "backend": {
+    "targets": [
+      {
+        "id": "target_1",
+        "hostname": "request.otoroshi.io",
+        "port": 443,
+        "tls": true,
+        "weight": 1,
+        "backup": false,
+        "predicate": {
+          "type": "AlwaysMatch"
+        },
+        "protocol": "HTTP/1.1",
+        "ip_address": null,
+        "tls_config": {
+          "certs": [],
+          "trusted_certs": [],
+          "enabled": false,
+          "loose": false,
+          "trust_all": false
+        }
+      }
+    ],
+    "root": "/",
+    "rewrite": false,
+    "load_balancing": {
+      "type": "RoundRobin"
+    },
+    "client": {
+      "retries": 1,
+      "max_errors": 20,
+      "retry_initial_delay": 50,
+      "backoff_factor": 2,
+      "call_timeout": 30000,
+      "call_and_stream_timeout": 120000,
+      "connection_timeout": 10000,
+      "idle_timeout": 60000,
+      "global_timeout": 30000,
+      "sample_interval": 2000,
+      "proxy": {},
+      "custom_timeouts": [],
+      "cache_connection_settings": {
+        "enabled": false,
+        "queue_size": 2048
+      }
+    },
+    "health_check": {
+      "enabled": false,
+      "url": "",
+      "timeout": 5000,
+      "healthyStatuses": [],
+      "unhealthyStatuses": [],
+      "blockOnRed": false,
+      "logicCheck": true,
+      "healthyRegexChecks": [],
+      "unhealthyRegexChecks": []
+    }
+  },
+  "backend_ref": null,
+  "plugins": [
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi.next.plugins.OverrideHost",
+      "include": [],
+      "exclude": [],
+      "config": {},
+      "bound_listeners": [],
+      "plugin_index": {
+        "transform_request": 0
+      }
+    },
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi.next.workflow.WorkflowBackend",
+      "include": [],
+      "exclude": [],
+      "config": {
+        "ref": "workflow_8ced10ea-76c1-46d3-9f3c-ab2a37f50b8b"
+      },
+      "bound_listeners": [],
+      "plugin_index": {}
+    },
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi.next.plugins.ApikeyCalls",
+      "include": [],
+      "exclude": [],
+      "config": {
+        "extractors": {
+          "basic": {
+            "enabled": true,
+            "header_name": null,
+            "query_name": null,
+            "cookie_name": null,
+            "path_name": null
+          },
+          "custom_headers": {
+            "enabled": true,
+            "client_id_header_name": null,
+            "client_secret_header_name": null
+          },
+          "client_id": {
+            "enabled": true,
+            "header_name": null,
+            "query_name": null,
+            "cookie_name": null,
+            "path_name": null
+          },
+          "jwt": {
+            "enabled": true,
+            "secret_signed": true,
+            "keypair_signed": true,
+            "include_request_attrs": false,
+            "max_jwt_lifespan_sec": null,
+            "header_name": null,
+            "query_name": null,
+            "cookie_name": null,
+            "path_name": null
+          },
+          "oto_bearer": {
+            "enabled": true,
+            "header_name": null,
+            "query_name": null,
+            "cookie_name": null,
+            "path_name": null
+          }
+        },
+        "routing": {
+          "enabled": false
+        },
+        "validate": true,
+        "mandatory": true,
+        "pass_with_user": false,
+        "wipe_backend_request": true,
+        "update_quotas": true
+      },
+      "bound_listeners": [],
+      "plugin_index": {
+        "validate_access": 0,
+        "transform_request": 1,
+        "match_route": 0
+      }
+    },
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi.next.plugins.SendOtoroshiHeadersBack",
+      "include": [],
+      "exclude": [],
+      "config": {},
+      "bound_listeners": [],
+      "plugin_index": {
+        "transform_response": 0
+      }
+    }
+  ],
+  "kind": "proxy.otoroshi.io/Route"
+}

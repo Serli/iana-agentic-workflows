@@ -1,0 +1,58 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "mcp-connector_fe5025e6-196c-4ebd-8812-b450fb334c3b",
+  "enabled": true,
+  "name": "IANA Risques majeurs",
+  "description": "An new MCP Connector",
+  "metadata": {
+    "created_at": "2026-05-27T22:30:53.645+02:00",
+    "updated_at": "2026-05-28T11:54:03.869+02:00"
+  },
+  "tags": [],
+  "pool": {
+    "size": 1
+  },
+  "transport": {
+    "kind": "http",
+    "options": {
+      "command": "node",
+      "args": [
+        "/foo/bar/server.js"
+      ],
+      "env": {
+        "TOKEN": "secret"
+      },
+      "url": "https://risques-majeurs-mcp.serliapps.dev/mcp"
+    }
+  },
+  "strict": false,
+  "include_functions": [],
+  "exclude_functions": [],
+  "include_resources": [],
+  "exclude_resources": [],
+  "include_resource_templates": [],
+  "exclude_resource_templates": [],
+  "include_resource_template_uris": [],
+  "exclude_resource_template_uris": [],
+  "include_prompts": [],
+  "exclude_prompts": [],
+  "allow_rules": {
+    "tool_rules": {},
+    "prompt_rules": {},
+    "resource_rules": {},
+    "resource_templates_rules": {}
+  },
+  "disallow_rules": {
+    "tool_rules": {},
+    "prompt_rules": {},
+    "resource_rules": {},
+    "resource_templates_rules": {}
+  },
+  "forward_auth": false,
+  "kind": "ai-gateway.extensions.cloud-apim.com/McpConnector"
+}

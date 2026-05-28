@@ -1,0 +1,156 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "new-teamsqdsqsdq"
+    ]
+  },
+  "id": "route_c12c8e3c5-b25b-4550-b4b5-8163a241ab24",
+  "name": "IANA RAG Simple MCP",
+  "description": "A new route",
+  "tags": [],
+  "metadata": {
+    "created_at": "2026-05-28T10:04:41.644+02:00",
+    "updated_at": "2026-05-28T10:17:25.908+02:00"
+  },
+  "enabled": true,
+  "debug_flow": false,
+  "export_reporting": false,
+  "capture": false,
+  "groups": [
+    "default"
+  ],
+  "bound_listeners": [],
+  "frontend": {
+    "domains": [
+      "otoroshi-workshop-iana-2026-00.oto.tools/mcp"
+    ],
+    "strip_path": true,
+    "exact": false,
+    "headers": {},
+    "cookies": {},
+    "query": {},
+    "methods": []
+  },
+  "backend": {
+    "targets": [
+      {
+        "id": "target_1",
+        "hostname": "request.otoroshi.io",
+        "port": 443,
+        "tls": true,
+        "weight": 1,
+        "backup": false,
+        "predicate": {
+          "type": "AlwaysMatch"
+        },
+        "protocol": "HTTP/1.1",
+        "ip_address": null,
+        "tls_config": {
+          "certs": [],
+          "trusted_certs": [],
+          "enabled": false,
+          "loose": false,
+          "trust_all": false
+        }
+      }
+    ],
+    "root": "/",
+    "rewrite": false,
+    "load_balancing": {
+      "type": "RoundRobin"
+    },
+    "client": {
+      "retries": 1,
+      "max_errors": 20,
+      "retry_initial_delay": 50,
+      "backoff_factor": 2,
+      "call_timeout": 30000,
+      "call_and_stream_timeout": 120000,
+      "connection_timeout": 10000,
+      "idle_timeout": 60000,
+      "global_timeout": 30000,
+      "sample_interval": 2000,
+      "proxy": {},
+      "custom_timeouts": [],
+      "cache_connection_settings": {
+        "enabled": false,
+        "queue_size": 2048
+      }
+    },
+    "health_check": {
+      "enabled": false,
+      "url": "",
+      "timeout": 5000,
+      "healthyStatuses": [],
+      "unhealthyStatuses": [],
+      "blockOnRed": false,
+      "logicCheck": true,
+      "healthyRegexChecks": [],
+      "unhealthyRegexChecks": []
+    }
+  },
+  "backend_ref": null,
+  "plugins": [
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi.next.plugins.OverrideHost",
+      "include": [],
+      "exclude": [],
+      "config": {},
+      "bound_listeners": [],
+      "plugin_index": {
+        "transform_request": 0
+      },
+      "nodeId": "cp:otoroshi.next.plugins.OverrideHost"
+    },
+    {
+      "enabled": true,
+      "debug": false,
+      "plugin": "cp:otoroshi_plugins.com.cloud.apim.otoroshi.extensions.aigateway.plugins.McpRespEndpoint",
+      "include": [],
+      "exclude": [],
+      "config": {
+        "name": "IANA-RAG",
+        "version": "1.0.0",
+        "enforce_oauth": true,
+        "auth_module_ref": "auth_mod_2d239c8c4-13a5-45b4-9421-b251806765c9_094d8762-75e0-4b4f-9303-0e133849df0b",
+        "auth_prm_url": " http://otoroshi-workshop-iana-2026-00.oto.tools:9999/.well-known/oauth-protected-resource",
+        "refs": [
+          "tool-function_d58ce536-7d82-4fb9-98a2-3ed37b317e74"
+        ],
+        "mcp_refs": [],
+        "emit_audit_events": true,
+        "include_functions": [],
+        "exclude_functions": [],
+        "include_resources": [],
+        "exclude_resources": [],
+        "include_resource_templates": [],
+        "exclude_resource_templates": [],
+        "include_resource_template_uris": [],
+        "exclude_resource_template_uris": [],
+        "include_prompts": [],
+        "exclude_prompts": [],
+        "allow_rules": {
+          "tool_rules": {},
+          "prompt_rules": {},
+          "resource_rules": {},
+          "resource_templates_rules": {}
+        },
+        "disallow_rules": {
+          "tool_rules": {},
+          "prompt_rules": {},
+          "resource_rules": {},
+          "resource_templates_rules": {}
+        }
+      },
+      "bound_listeners": [],
+      "plugin_index": {
+        "validate_access": 0
+      },
+      "nodeId": "cp:otoroshi_plugins.com.cloud.apim.otoroshi.extensions.aigateway.plugins.McpRespEndpoint"
+    }
+  ],
+  "kind": "proxy.otoroshi.io/Route"
+}

@@ -1,0 +1,58 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "mcp-connector_d8d35607-aadc-4d6a-8543-c112e91569af",
+  "enabled": true,
+  "name": "IANA RAG",
+  "description": "An new MCP Connector",
+  "metadata": {
+    "created_at": "2026-05-27T22:30:21.888+02:00",
+    "updated_at": "2026-05-27T23:00:46.202+02:00"
+  },
+  "tags": [],
+  "pool": {
+    "size": 1
+  },
+  "transport": {
+    "kind": "http",
+    "options": {
+      "command": "node",
+      "args": [
+        "/foo/bar/server.js"
+      ],
+      "env": {
+        "TOKEN": "secret"
+      },
+      "url": "https://rag-mcp-iana-agentic-workflows-workshop.cleverapps.io/mcp"
+    }
+  },
+  "strict": false,
+  "include_functions": [],
+  "exclude_functions": [],
+  "include_resources": [],
+  "exclude_resources": [],
+  "include_resource_templates": [],
+  "exclude_resource_templates": [],
+  "include_resource_template_uris": [],
+  "exclude_resource_template_uris": [],
+  "include_prompts": [],
+  "exclude_prompts": [],
+  "allow_rules": {
+    "tool_rules": {},
+    "prompt_rules": {},
+    "resource_rules": {},
+    "resource_templates_rules": {}
+  },
+  "disallow_rules": {
+    "tool_rules": {},
+    "prompt_rules": {},
+    "resource_rules": {},
+    "resource_templates_rules": {}
+  },
+  "forward_auth": false,
+  "kind": "ai-gateway.extensions.cloud-apim.com/McpConnector"
+}

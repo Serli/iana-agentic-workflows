@@ -1,0 +1,57 @@
+{
+  "id": "budget_7b8a78a5-9664-4e29-a082-e40139ae533c",
+  "name": "IANA Budget APIKEY",
+  "description": "An AI Budget",
+  "tags": [],
+  "metadata": {},
+  "enabled": true,
+  "start_at": 1777586400965,
+  "end_at": "2027-05-28T10:45:51.349",
+  "duration": {
+    "value": 30,
+    "unit": "day"
+  },
+  "renewals": 11,
+  "limits": {
+    "total_tokens": 10000000,
+    "total_usd": 10,
+    "inference_tokens": null,
+    "inference_usd": null,
+    "image_tokens": null,
+    "image_usd": null,
+    "audio_tokens": null,
+    "audio_usd": null,
+    "video_tokens": null,
+    "video_usd": null,
+    "embedding_tokens": null,
+    "embedding_usd": null,
+    "moderation_tokens": null,
+    "moderation_usd": null
+  },
+  "scope": {
+    "extract_from_apikey_meta": true,
+    "extract_from_apikey_group_meta": true,
+    "extract_from_user_meta": true,
+    "extract_from_user_auth_module_meta": true,
+    "apikeys": [
+      "mqXJ9YrgVM0rcGZy"
+    ],
+    "users": [],
+    "groups": [],
+    "providers": [],
+    "models": [],
+    "always_apply_rules": false,
+    "rules": [],
+    "rules_match_mode": "all"
+  },
+  "action_on_exceed": {
+    "mode": "block",
+    "alert_on_exceed": true,
+    "alert_on_almost_exceed": true,
+    "alert_on_almost_exceed_percentage": 80
+  },
+  "_loc": {
+    "tenant": "default"
+  },
+  "kind": "ai-gateway.extensions.cloud-apim.com/AiBudget"
+}

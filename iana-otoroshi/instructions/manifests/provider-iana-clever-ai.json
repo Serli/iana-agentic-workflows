@@ -1,0 +1,71 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "provider_5a3993f6-6cff-456a-9eb6-6cab80f081c5",
+  "name": "IANA Clever AI",
+  "description": "An OpenAI LLM api provider",
+  "metadata": {
+    "updated_at": "2026-05-27T22:27:23.733+02:00"
+  },
+  "tags": [],
+  "provider": "openai-compatible",
+  "connection": {
+    "base_url": "https://endpoint-workshop-iana-2026.cc-ai-services.clever-cloud.com/v1",
+    "token": "${vault://env/IANA_OPENAI_TOKEN}",
+    "timeout": 180000,
+    "models_path": "/models",
+    "supports_completion": true,
+    "supports_tools": true,
+    "supports_streaming": true,
+    "acc_stream_consumptions": false
+  },
+  "options": {
+    "model": "gpt-5.5",
+    "frequency_penalty": null,
+    "logit_bias": null,
+    "logprobs": null,
+    "top_logprobs": null,
+    "max_tokens": null,
+    "n": 1,
+    "presence_penalty": null,
+    "response_format": null,
+    "seed": null,
+    "stop": null,
+    "stream": false,
+    "temperature": null,
+    "top_p": null,
+    "tools": null,
+    "tool_choice": null,
+    "user": null,
+    "tool_functions": [],
+    "mcp_connectors": [],
+    "mcp_include_functions": [],
+    "mcp_exclude_functions": [],
+    "allow_config_override": true,
+    "max_function_calls": 10
+  },
+  "provider_fallback": null,
+  "memory": null,
+  "context": {
+    "default": null,
+    "contexts": []
+  },
+  "models": {
+    "include": [],
+    "exclude": []
+  },
+  "guardrails": [],
+  "guardrails_fail_on_deny": false,
+  "cache": {
+    "strategy": "none",
+    "ttl": 86400000,
+    "score": 0.8,
+    "redis_url": null,
+    "embedding_ref": null
+  },
+  "kind": "ai-gateway.extensions.cloud-apim.com/Provider"
+}

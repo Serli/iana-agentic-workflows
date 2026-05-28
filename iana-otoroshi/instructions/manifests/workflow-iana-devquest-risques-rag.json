@@ -1,0 +1,110 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "workflow_b3490005-88a8-47b9-bdc8-e48586cc7575",
+  "name": "IANA DevQuest + Risques + RAG",
+  "description": "New Workflow",
+  "metadata": {
+    "created_at": "2026-05-28T12:07:03.414+02:00",
+    "updated_at": "2026-05-28T12:09:39.564+02:00"
+  },
+  "tags": [],
+  "config": {
+    "kind": "workflow",
+    "steps": [
+      {
+        "provider": "provider_5a3993f6-6cff-456a-9eb6-6cab80f081c5",
+        "instructions": "Tu es un agent spécialisé dans l'analyse de contrats d'assurance et les risques naturels. \nTu as a ta disposition un connecteur MCP pour chercher dans des contrats d'assurance.\nTu as a ta disposition un connecteur MCP permettant de récupérer les risques naturels à une adresse.\nTu as a ta disposition un connecteur MCP permettant de récupérer les infos sur le DevQuest\n\nTu vas répondre aux questions de l'utilisateurs sur ses contrats et les risques naturels et le devquest",
+        "input": "Quels sont les risques naturels à l'adresse de chaque speaker du devquest et en quoi suis-je couvert par mon assurance ?\n",
+        "inline_tools": [
+          {
+            "mcp_ref": "mcp-connector_d8d35607-aadc-4d6a-8543-c112e91569af",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de rechercher dans des contrats d'assurance",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "6907bab1-19cd-4cb2-afcd-8919f399d401",
+            "position": {
+              "x": 537.2435800916182,
+              "y": -373.01518006103623
+            },
+            "customDisplayName": "MCP Tools"
+          },
+          {
+            "mcp_ref": "mcp-connector_fe5025e6-196c-4ebd-8812-b450fb334c3b",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de récupérer les risques naturels à une adresse",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "81009997-89fe-45c9-9dfa-fdbb9b4bd5ba",
+            "position": {
+              "x": 672.9990785366525,
+              "y": -215.00681247190198
+            },
+            "customDisplayName": "MCP Tools"
+          },
+          {
+            "mcp_ref": "mcp-connector_333b21c1-2f41-44c6-a542-47e306e959fa",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de récupérer les infos du DevQuest",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "3331a6be-3daf-4c53-810f-150ac7c305be",
+            "position": {
+              "x": 629.7319587628867,
+              "y": -32.63917525773195
+            }
+          }
+        ],
+        "id": "a0d5307f-3d3d-4147-bf39-e54899391ac4",
+        "position": {
+          "x": 244.2605460112597,
+          "y": -73.71482307358266
+        },
+        "name": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "description": "Agent spécialisé en contrats d'assurance",
+        "kind": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "enabled": true,
+        "result": "agent_result"
+      }
+    ],
+    "returned": {
+      "report": "${agent_result}"
+    },
+    "id": "start",
+    "breakpoint": false,
+    "position": {
+      "x": 12,
+      "y": 12
+    },
+    "returnedInformation": {
+      "position": {
+        "x": 647.6701030927835,
+        "y": 126.15463917525773
+      }
+    }
+  },
+  "test_payload": {},
+  "orphans": {
+    "nodes": [],
+    "edges": []
+  },
+  "job": {
+    "enabled": false,
+    "kind": "ScheduledEvery",
+    "instantiation": "OneInstancePerOtoroshiInstance",
+    "initial_delay": 1000,
+    "interval": 60000,
+    "cron_expression": "",
+    "config": {
+      "name": "Job"
+    }
+  },
+  "functions": {},
+  "notes": [],
+  "kind": "plugins.otoroshi.io/Workflow"
+}

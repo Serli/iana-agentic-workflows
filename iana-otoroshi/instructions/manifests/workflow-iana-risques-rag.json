@@ -1,0 +1,99 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "workflow_e10c2834-a426-4b09-8877-05faf5ef4761",
+  "name": "IANA Risques + RAG",
+  "description": "New Workflow",
+  "metadata": {
+    "created_at": "2026-05-28T11:50:41.145+02:00",
+    "updated_at": "2026-05-28T11:53:48.296+02:00"
+  },
+  "tags": [],
+  "config": {
+    "kind": "workflow",
+    "steps": [
+      {
+        "provider": "provider_5a3993f6-6cff-456a-9eb6-6cab80f081c5",
+        "instructions": "Tu es un agent spécialisé dans l'analyse de contrats d'assurance et les risques naturels. \nTu as a ta disposition un connecteur MCP pour chercher dans des contrats d'assurance.\nTu as a ta disposition un connecteur MCP permettant de récupérer les risques naturels à une adresse.\n\nTu vas répondre aux questions de l'utilisateurs sur ses contrats et les risques naturels",
+        "input": "Quels sont les risques naturels à mon adresse et en quoi suis-je couvert par mon assurance ?\n\nVoici mon adresse :\n\n${workflow_input.address || workflow_input.request.body_json.address}",
+        "inline_tools": [
+          {
+            "mcp_ref": "mcp-connector_d8d35607-aadc-4d6a-8543-c112e91569af",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de rechercher dans des contrats d'assurance",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "23549544-dbdd-4548-a41c-0d34e782e71a",
+            "position": {
+              "x": 570.439456380278,
+              "y": -329.7162109888713
+            },
+            "customDisplayName": "MCP Tools"
+          },
+          {
+            "mcp_ref": "mcp-connector_fe5025e6-196c-4ebd-8812-b450fb334c3b",
+            "name": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "description": "Serveur MCP permettant de récupérer les risques naturels à une adresse",
+            "kind": "extensions.com.cloud-apim.llm-extension.ai_agent_mcp_tools",
+            "enabled": true,
+            "id": "8f20018a-38fd-43d4-bdb1-ce43aa76de31",
+            "position": {
+              "x": 644.1330991552093,
+              "y": -141.39856504922156
+            }
+          }
+        ],
+        "id": "a0d5307f-3d3d-4147-bf39-e54899391ac4",
+        "position": {
+          "x": 244.2605460112597,
+          "y": -73.71482307358266
+        },
+        "name": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "description": "Agent spécialisé en contrats d'assurance",
+        "kind": "extensions.com.cloud-apim.llm-extension.ai_agent",
+        "enabled": true,
+        "result": "agent_result"
+      }
+    ],
+    "returned": {
+      "report": "${agent_result}"
+    },
+    "id": "start",
+    "breakpoint": false,
+    "position": {
+      "x": 12,
+      "y": 12
+    },
+    "returnedInformation": {
+      "position": {
+        "x": 652,
+        "y": 41
+      }
+    }
+  },
+  "test_payload": {
+    "address": "10 quai maurice metayer 79000 Niort"
+  },
+  "orphans": {
+    "nodes": [],
+    "edges": []
+  },
+  "job": {
+    "enabled": false,
+    "kind": "ScheduledEvery",
+    "instantiation": "OneInstancePerOtoroshiInstance",
+    "initial_delay": 1000,
+    "interval": 60000,
+    "cron_expression": "",
+    "config": {
+      "name": "Job"
+    }
+  },
+  "functions": {},
+  "notes": [],
+  "kind": "plugins.otoroshi.io/Workflow"
+}

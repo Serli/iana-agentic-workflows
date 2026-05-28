@@ -1,0 +1,32 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "tool-function_d58ce536-7d82-4fb9-98a2-3ed37b317e74",
+  "name": "get_insurance_report",
+  "description": "Return insurance_report based on legal insurance documents. Needs a 'query' parameter and returns a 'report' about it",
+  "metadata": {
+    "updated_at": "2026-05-28T10:12:59.354+02:00"
+  },
+  "tags": [],
+  "strict": true,
+  "parameters": {
+    "query": {
+      "type": "string",
+      "description": "User query about insurance legal docs content"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "backend": {
+    "kind": "Workflow",
+    "options": {
+      "workflow_id": "workflow_8ced10ea-76c1-46d3-9f3c-ab2a37f50b8b"
+    }
+  },
+  "kind": "ai-gateway.extensions.cloud-apim.com/ToolFunction"
+}

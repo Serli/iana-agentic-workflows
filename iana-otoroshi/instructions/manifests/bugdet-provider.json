@@ -1,0 +1,62 @@
+{
+  "_loc": {
+    "tenant": "default",
+    "teams": [
+      "default"
+    ]
+  },
+  "id": "budget_69f6477e-96c4-4338-a24c-32fe756a8a87",
+  "name": "IANA Budget Provider",
+  "description": "An AI Budget",
+  "metadata": {
+    "updated_at": "2026-05-28T10:38:23.039+02:00"
+  },
+  "tags": [],
+  "enabled": true,
+  "start_at": "2026-05-28T10:38:23.038+02:00",
+  "end_at": "2027-05-28T10:38:23.038+02:00",
+  "duration": {
+    "value": 30,
+    "unit": "day"
+  },
+  "limits": {
+    "total_tokens": 10000000,
+    "total_usd": 10,
+    "inference_tokens": null,
+    "inference_usd": null,
+    "image_tokens": null,
+    "image_usd": null,
+    "audio_tokens": null,
+    "audio_usd": null,
+    "video_tokens": null,
+    "video_usd": null,
+    "embedding_tokens": null,
+    "embedding_usd": null,
+    "moderation_tokens": null,
+    "moderation_usd": null
+  },
+  "scope": {
+    "extract_from_apikey_meta": true,
+    "extract_from_apikey_group_meta": true,
+    "extract_from_user_meta": true,
+    "extract_from_user_auth_module_meta": true,
+    "extract_from_provider_meta": false,
+    "apikeys": [],
+    "users": [],
+    "groups": [],
+    "providers": [
+      "provider_5a3993f6-6cff-456a-9eb6-6cab80f081c5"
+    ],
+    "models": [],
+    "always_apply_rules": false,
+    "rules": [],
+    "rules_match_mode": "all"
+  },
+  "action_on_exceed": {
+    "mode": "block",
+    "alert_on_exceed": true,
+    "alert_on_almost_exceed": true,
+    "alert_on_almost_exceed_percentage": 80
+  },
+  "kind": "ai-gateway.extensions.cloud-apim.com/AiBudget"
+}
