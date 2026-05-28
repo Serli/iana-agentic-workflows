@@ -203,7 +203,7 @@ Sauvegardez.
 
 > `Workflows ▸ Add item`
 >
-> URL : `<URL-backoffice-otoroshi>/bo/dashboard/workflows`
+> URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/workflows/workflows`
 
 Nommez le workflow **`IANA RAG simple`**. Vous arrivez sur l'éditeur visuel de workflow.
 
@@ -358,14 +358,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 | **Strict** | ✅ |
 | **Backend Kind** | `Workflow` |
 | **Workflow** | `IANA RAG simple` |
-| **Parameters spec** | ```json
-{
-  "query": {
-    "type": "string",
-    "description": "User query about insurance legal docs content"
-  }
-}
-``` |
+| **Parameters spec** | `{ "query": { "type": "string", "description": "User query about insurance legal docs content" } }` |
 | **Required params** | `query` |
 
 ![Création de la Tool Function](./images/11-create-mcp-function.png)
@@ -430,7 +423,7 @@ Otoroshi permet de plafonner la consommation IA (tokens et/ou USD) par **provide
 
 > `Extensions ▸ AI - LLM ▸ AI Budgets ▸ Add item`
 >
-> URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/budgets`
+> URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/ai-budgets`
 
 ### Budget rattaché au provider
 
@@ -474,7 +467,7 @@ Otoroshi capture nativement :
 - les **health checks** des backends ;
 - les **métriques** (Prometheus / OpenTelemetry).
 
-> Section **Events** : `<URL-backoffice-otoroshi>/bo/dashboard/events`
+> Section **Events** : `<URL-backoffice-otoroshi>/bo/dashboard/node/eventstream`
 
 ![Flux d'événements](./images/21-observability-1.png)
 ![Détail d'un événement](./images/22-observability-2.png.png)
@@ -658,8 +651,8 @@ Toutes les URLs ci-dessous sont à préfixer par votre `<URL-backoffice-otoroshi
 - **Providers IA** : `/bo/dashboard/extensions/cloud-apim/ai-gateway/providers`
 - **MCP Connectors** : `/bo/dashboard/extensions/cloud-apim/ai-gateway/mcp-connectors`
 - **Tool Functions** : `/bo/dashboard/extensions/cloud-apim/ai-gateway/tool-functions`
-- **AI Budgets** : `/bo/dashboard/extensions/cloud-apim/ai-gateway/budgets`
-- **Workflows** : `/bo/dashboard/workflows`
+- **AI Budgets** : `/bo/dashboard/extensions/cloud-apim/ai-gateway/ai-budgets`
+- **Workflows** : `/bo/dashboard/extensions/workflows/workflows`
 - **Routes** : `/bo/dashboard/routes`
 - **API Keys** : `/bo/dashboard/apikeys`
-- **Events** : `/bo/dashboard/events`
+- **Events** : `/bo/dashboard/node/eventstream`
