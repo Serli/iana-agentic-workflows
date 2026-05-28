@@ -484,7 +484,7 @@ Vous pouvez filtrer le flux par type (`auditEvent`, `WorkflowRunEvent`, `Gateway
 
 ## Étape 2.7 — Guardrails LLM
 
-Sur le provider `IANA Clever AI`, descendez jusqu'à la section **Guardrails validation** et ajoutez un guardrail. Plusieurs types sont disponibles : modération de langue, regex, listes noires, intégration **Balanwage**, etc.
+Sur le provider `IANA Clever AI`, descendez jusqu'à la section **Guardrails validation** et ajoutez un guardrail. Plusieurs types sont disponibles : modération de langue, regex, listes noires, etc.
 
 Exemple avec une modération OpenAI :
 
