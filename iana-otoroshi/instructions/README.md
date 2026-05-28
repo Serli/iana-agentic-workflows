@@ -142,12 +142,12 @@ Toutes les URLs `otoroshi-workshop-iana-2026-${slug}.oto.tools` (ou `.cleverapps
 
 # Niveau 1 — Agent RAG simple
 
-**Objectif** : reproduire le comportement du projet **M1000** d'Arnaud. Un agent qui répond à des questions sur des contrats d'assurance en allant interroger une base documentaire exposée en MCP.
+**Objectif** : construire un agent qui répond à des questions sur des contrats d'assurance en allant interroger une base documentaire exposée en MCP.
 
 Architecture cible :
 
 ```
-Utilisateur ──► Workflow Otoroshi ──► AI Agent (Clever AI) ──► MCP RAG (Arnaud)
+Utilisateur ──► Workflow Otoroshi ──► AI Agent (Clever AI) ──► MCP RAG
 ```
 
 ## Étape 1.1 — Créer le provider IA Clever AI
@@ -515,7 +515,7 @@ Une fois le second provider créé, retournez sur le provider `IANA Clever AI` e
 
 **Objectif** : composer un agent qui orchestre **plusieurs sources MCP** :
 
-- **MCP RAG d'Arnaud** : couverture contractuelle ;
+- **MCP RAG** : couverture contractuelle ;
 - **MCP Risques majeurs** : risques naturels associés à une adresse ;
 - **MCP DevQuest** : informations sur les speakers (ville, etc.).
 
