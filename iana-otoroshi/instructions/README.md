@@ -389,7 +389,13 @@ Pour la première exposition MCP, on protège la route via une simple clé d'API
 
 ### Tester avec MCP Inspector
 
-Lancez [MCP Inspector](https://github.com/modelcontextprotocol/inspector) et connectez-vous :
+Lancez [MCP Inspector](https://github.com/modelcontextprotocol/inspector) depuis un terminal (aucune installation préalable nécessaire, `npx` télécharge et exécute la dernière version) :
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+Puis connectez-vous :
 
 - **Transport Type** : `Streamable HTTP`
 - **URL** : `https://otoroshi-workshop-iana-2026-${slug}.cleverapps.io/mcp` (Clever) ou `http://<n-importe-quoi>.oto.tools:8080/mcp` (local)
