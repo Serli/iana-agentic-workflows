@@ -154,7 +154,7 @@ Utilisateur ──► Workflow Otoroshi ──► AI Agent (Clever AI) ──►
 
 Dans le backoffice Otoroshi :
 
-> `Extensions ▸ AI - LLM ▸ Providers ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **LLM Providers** ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/providers`
 
@@ -181,7 +181,7 @@ Sauvegardez. Vous pouvez vérifier que le bouton « models » liste bien les mod
 
 ## Étape 1.2 — Créer le connecteur MCP RAG
 
-> `Extensions ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/mcp-connectors`
 
@@ -201,7 +201,7 @@ Sauvegardez.
 
 ## Étape 1.3 — Créer le workflow agentique
 
-> `Workflows ▸ Add item`
+> `Sidebar ▸ Categories ▸ Workflows ▸ Workflows ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/workflows/workflows`
 
@@ -278,7 +278,7 @@ Cliquez ensuite sur le bouton **▶ Play** en bas à droite. Vous devriez obteni
 
 ## Étape 2.1 — Exposer le workflow en API REST
 
-> `Routes ▸ Add item`
+> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/routes`
 
@@ -306,7 +306,7 @@ Pour le plugin **Workflow Backend**, sélectionnez `IANA RAG simple` comme workf
 
 ### Créer une clé d'API
 
-> `API Keys ▸ Add item`
+> `Sidebar ▸ Categories ▸ Manage resources ▸ Apikeys ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/apikeys`
 
@@ -347,7 +347,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 
 ### Créer une « Tool Function »
 
-> `Extensions ▸ AI - LLM ▸ Tool Functions ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **LLM Tool Functions** ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/tool-functions`
 
@@ -365,7 +365,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 
 ### Créer la route d'exposition MCP
 
-> `Routes ▸ Add item`
+> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ Add item`
 
 Créez une route nommée **`IANA RAG Simple MCP`** :
 
@@ -427,7 +427,7 @@ Sur la route `IANA RAG Simple MCP`, il suffit d'activer :
 
 Otoroshi permet de plafonner la consommation IA (tokens et/ou USD) par **provider**, par **API key**, par **utilisateur**, par **groupe**, etc.
 
-> `Extensions ▸ AI - LLM ▸ AI Budgets ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **AI Budgets** ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/ai-budgets`
 
@@ -473,7 +473,9 @@ Otoroshi capture nativement :
 - les **health checks** des backends ;
 - les **métriques** (Prometheus / OpenTelemetry).
 
-> Section **Events** : `<URL-backoffice-otoroshi>/bo/dashboard/node/eventstream`
+> `Sidebar ▸ Categories ▸ Tooling ▸ Node Events Stream`
+>
+> URL : `<URL-backoffice-otoroshi>/bo/dashboard/node/eventstream`
 
 ![Flux d'événements](./images/21-observability-1.png)
 ![Détail d'un événement](./images/22-observability-2.png.png)
@@ -521,7 +523,7 @@ Une fois le second provider créé, retournez sur le provider `IANA Clever AI` e
 
 ## Étape 3.1 — Connecteur MCP Risques majeurs
 
-> `Extensions ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
 
 | Champ | Valeur |
 | --- | --- |
@@ -587,7 +589,7 @@ L'agent doit :
 
 ## Étape 3.3 — Connecteur MCP DevQuest
 
-> `Extensions ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
+> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
 
 | Champ | Valeur |
 | --- | --- |
@@ -643,7 +645,9 @@ Pas besoin d'input particulier — la question est portée par les instructions 
 
 Le dossier [`./manifests`](./manifests) contient les **définitions JSON exportables** de toutes les entités créées dans ce guide. Vous pouvez les charger en une fois via le **Resources Loader** d'Otoroshi :
 
-> `<URL-backoffice-otoroshi>/bo/dashboard/resources-loader`
+> `Sidebar ▸ Categories ▸ Tooling ▸ Resources Loader`
+>
+> URL : `<URL-backoffice-otoroshi>/bo/dashboard/resources-loader`
 
 Collez-y le contenu d'un ou plusieurs manifests, puis validez l'import.
 
