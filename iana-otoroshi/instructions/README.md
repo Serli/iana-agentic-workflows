@@ -541,9 +541,11 @@ Une fois le second provider créé, retournez sur le provider `IANA Clever AI` e
 Créez un nouveau workflow **`IANA Risques + RAG`** avec :
 
 - un nœud `AI Agent` ;
-- **deux** nœuds `MCP Tools` raccrochés à l'agent : un pour `IANA RAG`, un pour `IANA Risques majeurs`.
+- **deux** nœuds `MCP Tools` raccrochés à l'agent : un pour `IANA RAG`, un pour `IANA Risques majeurs` ;
+- un nœud `HTTP client` qui transforme le rapport markdown produit par l'agent en **PDF** ;
+- un nœud `Returned` qui renvoie à la fois le rapport et le lien vers le PDF.
 
-![Vue d'ensemble du workflow Risques + RAG](./images/25-create-workflow-risques-rag.png)
+![Vue d'ensemble du workflow Risques + RAG](./images/25-create-workflow-risques-rag-1.png)
 
 ### Configuration de l'`AI Agent`
 
@@ -573,6 +575,35 @@ Un nœud pointe sur `IANA RAG` (contrats), l'autre sur `IANA Risques majeurs` (r
 
 ![Nœud MCP — Risques majeurs](./images/27-mcp-node.png)
 
+### Configuration du nœud `HTTP client` (markdown → PDF)
+
+Après l'agent, on ajoute un nœud `HTTP client` (catégorie `Networking`) qui prend le rapport markdown produit par l'agent et appelle un service de conversion PDF. Le lien public vers le PDF généré est ensuite remonté dans le résultat du workflow.
+
+- **URL** : `https://md-to-pdf-iana.cleverapps.io/convert-and-store`
+- **Method** : `POST`
+- **Headers** : `Content-Type: application/json`
+- **Body** :
+  ```json
+  { "markdown": "${agent_result}" }
+  ```
+- **Response selector** : `body_json.url`
+- **Result** : `pdf_link`
+
+![Nœud HTTP client — markdown vers PDF](./images/27-md-to-pdf-node.png)
+
+### Configuration du nœud `Returned`
+
+Mettez à jour le nœud `Returned` pour renvoyer **à la fois** le rapport markdown et le lien vers le PDF généré :
+
+```json
+{
+  "pdf_link": "${pdf_link}",
+  "report": "${agent_result}"
+}
+```
+
+![Nœud Returned — Risques + RAG](./images/27-returned-node.png)
+
 ### Test
 
 Dans le panneau **INPUT** :
@@ -587,7 +618,9 @@ L'agent doit :
 
 1. interroger le MCP Risques majeurs pour récupérer les risques associés à l'adresse ;
 2. interroger le MCP RAG pour vérifier la couverture contractuelle ;
-3. produire un rapport croisé.
+3. produire un rapport markdown croisé ;
+4. convertir ce rapport en PDF via le nœud `HTTP client` ;
+5. retourner le rapport **et** le lien vers le PDF.
 
 ## Étape 3.3 — Connecteur MCP DevQuest
 
