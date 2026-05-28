@@ -486,12 +486,23 @@ Vous pouvez filtrer le flux par type (`auditEvent`, `WorkflowRunEvent`, `Gateway
 
 Sur le provider `IANA Clever AI`, descendez jusqu'à la section **Guardrails validation** et ajoutez un guardrail. Plusieurs types sont disponibles : modération de langue, regex, listes noires, etc.
 
-Exemple avec une modération OpenAI :
+### Pré-requis : un second provider pour la modération
+
+Le guardrail **`Language moderation`** s'appuie sur un **LLM tiers** pour classer le contenu (hate, harassment, etc.). Il faut donc **créer un second provider IA** dédié à cette classification, en suivant la même procédure que l'[Étape 1.1](#étape-11--créer-le-provider-ia-clever-ai), avec deux différences importantes :
+
+- ce second provider **ne doit pas avoir de guardrail** configuré (sous peine d'avoir une boucle infinie : guardrail → provider de modération → guardrail → …) ;
+- vous pouvez le pointer sur le même endpoint Clever AI ou sur tout autre provider compatible.
+
+Nommez-le par exemple `IANA Clever AI - Moderation` pour le distinguer du provider principal.
+
+### Configuration du guardrail
+
+Une fois le second provider créé, retournez sur le provider `IANA Clever AI` et ajoutez le guardrail :
 
 - **Guardrail** : `Language moderation`
 - **Apply before** : ✅ (avant l'appel au LLM)
 - **Apply after** : ✅ (sur la réponse du LLM)
-- **LLM Provider** : un provider dédié à la modération (ex. `OpenAI clean`)
+- **LLM Provider** : le **second provider** dédié à la modération
 - **Moderation types** : `hate`, `harassment`, `self-harm`, `sexual`, `violence`, etc.
 
 ![Configuration des guardrails sur le provider](./images/23-provider-guardrails.png)
