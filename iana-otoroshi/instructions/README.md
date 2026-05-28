@@ -482,6 +482,8 @@ Otoroshi capture nativement :
 
 Vous pouvez filtrer le flux par type (`auditEvent`, `WorkflowRunEvent`, `GatewayEvent`, etc.) et inspecter chaque événement individuellement.
 
+> 💡 **Astuce** : pour ne voir que les appels LLM (prompt, réponse, tokens consommés, coût estimé, provider appelé…), filtrez sur le type **`LLMUsageAudit`**. C'est l'événement d'audit dédié émis par la LLM extension à chaque appel d'un provider IA — pratique pour valider en live ce qui sort de votre agent.
+
 > ℹ️ La démo détaillée tracing / audit / Grafana n'est pas obligatoire pendant le workshop : mentionnez-la comme **capacité disponible** plutôt que comme étape à faire.
 
 ## Étape 2.7 — Guardrails LLM
