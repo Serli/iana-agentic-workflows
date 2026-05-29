@@ -125,6 +125,31 @@ Le backend s'initialise avec les configurations par défaut suivantes au démarr
     }
     ```
 
+### 2.bis Ingestion de Plusieurs Documents PDF (Batch)
+*   **Méthode** : `POST`
+*   **Route** : `/ingest-batch`
+*   **Type de contenu** : `multipart/form-data`
+*   **Description** : Ingère plusieurs PDF en une seule requête. Chaque fichier est traité indépendamment : l'échec de l'un n'interrompt pas les autres.
+*   **Commande de Test** :
+    ```bash
+    curl -X POST http://localhost:8000/ingest-batch \
+      -H "Content-Type: multipart/form-data" \
+      -F "files=@doc1.pdf" \
+      -F "files=@doc2.pdf"
+    ```
+*   **Réponse Type** :
+    ```json
+    {
+      "message": "2/2 fichier(s) indexé(s) avec succès",
+      "total_files": 2,
+      "total_chunks": 84,
+      "results": [
+        { "filename": "doc1.pdf", "success": true, "num_chunks": 42, "error": null },
+        { "filename": "doc2.pdf", "success": true, "num_chunks": 42, "error": null }
+      ]
+    }
+    ```
+
 ### 3. Recherche par Similarité (Query RAG)
 *   **Méthode** : `POST`
 *   **Route** : `/query`

@@ -27,6 +27,29 @@ export const ingestFile = async (file: File) => {
   return response.data;
 };
 
+export interface FileIngestResult {
+  filename: string;
+  success: boolean;
+  num_chunks: number;
+  error?: string | null;
+}
+
+export interface BatchIngestResponse {
+  message: string;
+  total_files: number;
+  total_chunks: number;
+  results: FileIngestResult[];
+}
+
+export const ingestFiles = async (files: File[]): Promise<BatchIngestResponse> => {
+  const formData = new FormData();
+  files.forEach((file) => formData.append('files', file));
+  const response = await api.post('/ingest-batch', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
+
 export const queryDocuments = async (question: string, top_k: number = 4) => {
   const response = await api.post('/query', { question, top_k });
   return response.data;

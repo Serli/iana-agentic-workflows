@@ -1,7 +1,8 @@
 import os
 import shutil
+from typing import List
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from schemas import QueryRequest, QueryResponse, IngestResponse, ChunkResponse
+from schemas import QueryRequest, QueryResponse, IngestResponse, ChunkResponse, FileIngestResult, BatchIngestResponse
 from rag_service import RAGService
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -51,6 +52,48 @@ async def ingest_document(file: UploadFile = File(...)):
     except Exception as e:
         # Log error in actual app
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/ingest-batch", response_model=BatchIngestResponse)
+async def ingest_documents(files: List[UploadFile] = File(...)):
+    """Ingère plusieurs documents PDF en une seule requête. Chaque fichier est traité
+    indépendamment : un échec sur l'un n'interrompt pas l'ingestion des autres."""
+    results: List[FileIngestResult] = []
+    total_chunks = 0
+
+    for file in files:
+        if not file.filename.lower().endswith(".pdf"):
+            results.append(FileIngestResult(
+                filename=file.filename,
+                success=False,
+                error="Only PDF files are supported."
+            ))
+            continue
+
+        file_path = os.path.join(UPLOAD_DIR, file.filename)
+        try:
+            with open(file_path, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+            num_chunks = rag_service.ingest_file(file_path)
+            total_chunks += num_chunks
+            results.append(FileIngestResult(
+                filename=file.filename,
+                success=True,
+                num_chunks=num_chunks
+            ))
+        except Exception as e:
+            results.append(FileIngestResult(
+                filename=file.filename,
+                success=False,
+                error=str(e)
+            ))
+
+    success_count = sum(1 for r in results if r.success)
+    return BatchIngestResponse(
+        message=f"{success_count}/{len(files)} fichier(s) indexé(s) avec succès",
+        total_files=len(files),
+        total_chunks=total_chunks,
+        results=results
+    )
 
 @app.post("/query", response_model=QueryResponse)
 async def query_rag(request: QueryRequest):

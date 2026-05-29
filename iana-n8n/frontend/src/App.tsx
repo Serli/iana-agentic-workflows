@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { ingestFile, queryDocuments, clearDatabase, setApiUrl, getApiUrl, REMOTE_API_URL, LOCAL_API_URL } from './services/api';
-import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2, Server, Trash2 } from 'lucide-react';
+import { ingestFiles, queryDocuments, clearDatabase, setApiUrl, getApiUrl, REMOTE_API_URL, LOCAL_API_URL } from './services/api';
+import type { FileIngestResult } from './services/api';
+import { Upload, Search, FileText, CheckCircle, AlertCircle, Loader2, Link2, Server, Trash2, X, FileUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ChunkResponse {
@@ -9,12 +10,16 @@ interface ChunkResponse {
   score: number;
 }
 
+const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50 Mo
+
 function App() {
   const [apiUrl, setApiUrlState] = useState(getApiUrl());
-  const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const [dragActive, setDragActive] = useState(false);
   const [ingesting, setIngesting] = useState(false);
   const [ingestStatus, setIngestStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
-  
+  const [ingestDetails, setIngestDetails] = useState<FileIngestResult[]>([]);
+
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
   const [results, setResults] = useState<ChunkResponse[]>([]);
@@ -30,28 +35,93 @@ function App() {
     setApiUrlState(url);
   };
 
+  // Ajoute des fichiers à la sélection en filtrant les PDF et en dédoublonnant par nom+taille.
+  const addFiles = (incoming: FileList | File[]) => {
+    const pdfs = Array.from(incoming).filter(
+      (f) => f.name.toLowerCase().endsWith('.pdf') && f.size <= MAX_FILE_SIZE
+    );
+    if (pdfs.length === 0) return;
+    setFiles((prev) => {
+      const seen = new Set(prev.map((f) => `${f.name}-${f.size}`));
+      const merged = [...prev];
+      for (const f of pdfs) {
+        const key = `${f.name}-${f.size}`;
+        if (!seen.has(key)) {
+          seen.add(key);
+          merged.push(f);
+        }
+      }
+      return merged;
+    });
+    setIngestStatus(null);
+    setIngestDetails([]);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setIngestStatus(null);
+    if (e.target.files) {
+      addFiles(e.target.files);
+    }
+    // Reset pour permettre de re-sélectionner les mêmes fichiers après suppression
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const removeFile = (index: number) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      addFiles(e.dataTransfer.files);
     }
   };
 
   const onIngest = async () => {
-    if (!file) return;
+    if (files.length === 0) return;
     setIngesting(true);
     setIngestStatus(null);
-    
+    setIngestDetails([]);
+
     try {
-      const data = await ingestFile(file);
-      setIngestStatus({ type: 'success', msg: `Succès : ${data.num_chunks} segments indexés.` });
-      setFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      const data = await ingestFiles(files);
+      const failed = data.results.filter((r) => !r.success);
+      setIngestDetails(data.results);
+      setIngestStatus({
+        type: failed.length === 0 ? 'success' : 'error',
+        msg: failed.length === 0
+          ? `Succès : ${data.total_files} fichier(s), ${data.total_chunks} segments indexés.`
+          : `${data.total_files - failed.length}/${data.total_files} fichier(s) indexés (${data.total_chunks} segments). ${failed.length} en échec.`,
+      });
+      if (failed.length === 0) {
+        setFiles([]);
+      } else {
+        // On ne garde que les fichiers en échec pour permettre un nouvel essai
+        const failedNames = new Set(failed.map((r) => r.filename));
+        setFiles((prev) => prev.filter((f) => failedNames.has(f.name)));
+      }
     } catch (err: any) {
       setIngestStatus({ type: 'error', msg: err.response?.data?.detail || "Erreur lors de l'ingestion." });
     } finally {
       setIngesting(false);
     }
+  };
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024) return `${bytes} o`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} Ko`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} Mo`;
   };
 
   const onSearch = async (e: React.FormEvent) => {
@@ -77,8 +147,9 @@ function App() {
       // Reset all states
       setResults([]);
       setQuery('');
-      setFile(null);
+      setFiles([]);
       setIngestStatus(null);
+      setIngestDetails([]);
       setError(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
     } catch (err: any) {
@@ -211,48 +282,118 @@ function App() {
               <h2 className="mb-4" style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Upload size={20} /> Ingestion PDF
               </h2>
-              <div 
-                style={{ 
-                  border: '2px dashed var(--border)', 
-                  borderRadius: '8px', 
-                  padding: '1.5rem', 
+              <div
+                style={{
+                  border: dragActive ? '2px dashed var(--maif-blue)' : '2px dashed var(--border)',
+                  borderRadius: '8px',
+                  padding: '1.5rem',
                   textAlign: 'center',
-                  background: file ? '#f0f9ff' : 'transparent',
-                  cursor: 'pointer'
+                  background: dragActive ? '#e0f2fe' : (files.length > 0 ? '#f0f9ff' : 'transparent'),
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
                 onClick={() => fileInputRef.current?.click()}
+                onDragEnter={handleDrag}
+                onDragOver={handleDrag}
+                onDragLeave={handleDrag}
+                onDrop={handleDrop}
               >
-                <input 
-                  type="file" 
-                  ref={fileInputRef} 
-                  onChange={handleFileChange} 
-                  accept=".pdf" 
-                  style={{ display: 'none' }} 
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileChange}
+                  accept=".pdf"
+                  multiple
+                  style={{ display: 'none' }}
                 />
-                {!file ? (
-                  <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Cliquez pour choisir un PDF</p>
-                ) : (
-                  <p style={{ color: 'var(--maif-blue)', fontWeight: 600 }}>{file.name}</p>
-                )}
+                <FileUp
+                  size={32}
+                  style={{ margin: '0 auto 0.75rem', color: dragActive ? 'var(--maif-blue)' : 'var(--text-secondary)', opacity: dragActive ? 1 : 0.5 }}
+                />
+                <p style={{ color: dragActive ? 'var(--maif-blue)' : 'var(--text-secondary)', fontSize: '0.9rem', fontWeight: dragActive ? 600 : 400 }}>
+                  {dragActive
+                    ? 'Déposez vos fichiers PDF ici'
+                    : 'Glissez-déposez vos PDF ici, ou cliquez pour les choisir'}
+                </p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', opacity: 0.7, marginTop: '0.25rem' }}>
+                  Plusieurs fichiers acceptés (PDF, max 50 Mo chacun)
+                </p>
               </div>
-              
-              <button 
+
+              <AnimatePresence>
+                {files.length > 0 && (
+                  <motion.ul
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="mt-4 flex-col gap-2"
+                    style={{ listStyle: 'none', padding: 0, margin: '1rem 0 0' }}
+                  >
+                    {files.map((f, i) => (
+                      <li
+                        key={`${f.name}-${f.size}-${i}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          padding: '0.5rem 0.75rem',
+                          background: '#f8fafc',
+                          border: '1px solid var(--border)',
+                          borderRadius: '6px',
+                          fontSize: '0.85rem'
+                        }}
+                      >
+                        <FileText size={16} style={{ color: 'var(--maif-blue)', flexShrink: 0 }} />
+                        <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={f.name}>
+                          {f.name}
+                        </span>
+                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', flexShrink: 0 }}>
+                          {formatSize(f.size)}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={(e) => { e.stopPropagation(); removeFile(i); }}
+                          disabled={ingesting}
+                          title="Retirer"
+                          style={{
+                            background: 'transparent',
+                            border: 'none',
+                            cursor: ingesting ? 'not-allowed' : 'pointer',
+                            color: 'var(--text-secondary)',
+                            display: 'flex',
+                            padding: 0,
+                            flexShrink: 0
+                          }}
+                        >
+                          <X size={16} />
+                        </button>
+                      </li>
+                    ))}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
+
+              <button
                 className="primary w-full mt-4 flex items-center justify-center gap-2"
-                disabled={!file || ingesting}
+                disabled={files.length === 0 || ingesting}
                 onClick={onIngest}
               >
                 {ingesting ? <Loader2 className="animate-spin" size={18} /> : null}
-                {ingesting ? 'Indexation...' : 'Lancer l\'ingestion'}
+                {ingesting
+                  ? 'Indexation...'
+                  : files.length > 1
+                    ? `Lancer l'ingestion (${files.length} fichiers)`
+                    : "Lancer l'ingestion"}
               </button>
 
               <AnimatePresence>
                 {ingestStatus && (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     className="mt-4 p-3 rounded-lg"
-                    style={{ 
+                    style={{
                       background: ingestStatus.type === 'success' ? '#ecfdf5' : '#fef2f2',
                       border: ingestStatus.type === 'success' ? '1px solid #10b981' : '1px solid #ef4444',
                       color: ingestStatus.type === 'success' ? '#065f46' : '#991b1b',
@@ -264,6 +405,40 @@ function App() {
                     {ingestStatus.type === 'success' ? <CheckCircle size={16} /> : <AlertCircle size={16} />}
                     {ingestStatus.msg}
                   </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {ingestDetails.length > 0 && (
+                  <motion.ul
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="mt-2 flex-col gap-1"
+                    style={{ listStyle: 'none', padding: 0, margin: '0.5rem 0 0' }}
+                  >
+                    {ingestDetails.map((r, i) => (
+                      <li
+                        key={`${r.filename}-${i}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                          fontSize: '0.78rem',
+                          color: r.success ? '#065f46' : '#991b1b'
+                        }}
+                        title={r.error || undefined}
+                      >
+                        {r.success ? <CheckCircle size={14} style={{ flexShrink: 0 }} /> : <AlertCircle size={14} style={{ flexShrink: 0 }} />}
+                        <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {r.filename}
+                        </span>
+                        <span style={{ flexShrink: 0 }}>
+                          {r.success ? `${r.num_chunks} segments` : (r.error || 'échec')}
+                        </span>
+                      </li>
+                    ))}
+                  </motion.ul>
                 )}
               </AnimatePresence>
             </div>
