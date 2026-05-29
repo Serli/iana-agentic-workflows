@@ -19,7 +19,9 @@ app.add_middleware(
 
 # Global RAG Service
 # Persistence path is env.CHROMA_DB_PATH or ./chroma_db
-rag_service = RAGService(db_path=os.environ.get("CHROMA_DB_PATH", "./chroma_db"))
+CHROMA_DB_PATH = os.environ.get("CHROMA_DB_PATH", "./chroma_db")
+print(f"ChromaDB persistence path: {CHROMA_DB_PATH}")
+rag_service = RAGService(db_path=CHROMA_DB_PATH)
 
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
