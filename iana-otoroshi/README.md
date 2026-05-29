@@ -224,7 +224,7 @@ L'objectif est de construire le pipeline suivant :
 
 ### Nœud `AI Agent`
 
-Ajoutez un nœud `AI Agent` (catégorie `AI - LLM`) et configurez-le :
+Ajoutez un nœud `AI Agent` (ne **surtout** pas prendre `AI Agent (function)`) et configurez-le :
 
 - **LLM provider** : `IANA Clever AI`
 - **Instructions** :
