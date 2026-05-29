@@ -1,15 +1,25 @@
-# iana-agentic-workflows
+# 🤖 Workflows Agentiques
 
-Ce répertoire contient les ressources afférentes à l'atelier Atelier *Workflows agentiques :
-Passer du No-Code à l’échelle industrielle avec MCP et Otoroshi-LLM* dans le cadre de la conférente IANA 2026 (IA en Nouvelle Aquitaine) .
+> 🚀 **Atelier Pratique IANA 2026** (IA en Nouvelle Aquitaine)  
+> *Passer du No-Code à l'échelle industrielle avec MCP et Otoroshi-LLM*
 
-L'atelier se découpera en trois sous-parties :
-
-1. Une introduction générale sur les concepts d'agents IA et sur la nécessité d'introduire des standards de communication tels que le protocole MCP pour étendre leurs fonctionnalités ;
-2. Dans une seconde partie, nous montrerons comment utiliser un framework no/low-code pour créer rapidement des agents et les connecter à des services tiers via MCP *sans un ligne de code* ;
-3. Dans une troisième partie, nous  verrons comment, dans un contexte industriel, exposer et sécuriser des agents et des services MCP via l'outil Otoroshi et son extension LLM.
+Ce répertoire contient toutes les ressources, codes sources et guides pas-à-pas pour suivre et reproduire les exercices de l'atelier.
 
 ---
+
+### 🗺️ Déroulement de l'Atelier
+
+L'atelier est structuré en trois grandes étapes progressives :
+
+* **[Concept] Partie 1 : Contexte**  
+  Une introduction générale sur les concepts d'**agents IA** et sur la nécessité d'introduire des standards de communication universels comme le protocole **MCP** pour étendre leurs fonctionnalités.
+* **[No-Code / Low-Code] Partie 2 : [iana-n8n](./iana-n8n)**  
+  Mise en œuvre pratique avec le framework **n8n** pour créer rapidement des agents conversationnels et les connecter à des services tiers (RAG local) via MCP, **sans écrire une seule ligne de code**.
+* **[Production / Industrie] Partie 3 : [iana-otoroshi](./iana-otoroshi)**  
+  Industrialisation dans un contexte d'entreprise pour **exposer et sécuriser** des agents et des services MCP grâce à la puissance d'**Otoroshi** et de son extension LLM (gestion d'API, sécurité, budgets, observabilité, guardrails).
+
+---
+
 
 ## 📋 Sommaire
 
