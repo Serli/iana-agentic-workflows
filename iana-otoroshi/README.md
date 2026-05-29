@@ -157,7 +157,7 @@ Utilisateur ──► Workflow Otoroshi ──► AI Agent (Clever AI) ──►
 
 Dans le backoffice Otoroshi :
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **LLM Providers** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ LLM Providers ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/providers`
 
@@ -184,7 +184,7 @@ Sauvegardez. Vous pouvez vérifier que le bouton « models » liste bien les mod
 
 ## Étape 1.2 — Créer le connecteur MCP RAG
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/mcp-connectors`
 
@@ -352,7 +352,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 
 ### Créer une « Tool Function »
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **LLM Tool Functions** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ LLM Tool Functions ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/tool-functions`
 
@@ -432,7 +432,7 @@ Sur la route `IANA RAG Simple MCP`, il suffit d'activer :
 
 Otoroshi permet de plafonner la consommation IA (tokens et/ou USD) par **provider**, par **API key**, par **utilisateur**, par **groupe**, etc.
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **AI Budgets** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ AI Budgets ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/extensions/cloud-apim/ai-gateway/ai-budgets`
 
@@ -530,7 +530,7 @@ Une fois le second provider créé, retournez sur le provider `IANA Clever AI` e
 
 ## Étape 3.1 — Connecteur MCP Risques majeurs
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
 
 | Champ | Valeur |
 | --- | --- |
@@ -629,7 +629,7 @@ L'agent doit :
 
 ## Étape 3.3 — Connecteur MCP DevQuest
 
-> `Sidebar ▸ **Categories** ▸ AI - LLM ▸ **MCP Connectors** ▸ Add item`
+> `Sidebar ▸ Categories ▸ AI - LLM ▸ MCP Connectors ▸ Add item`
 
 | Champ | Valeur |
 | --- | --- |
