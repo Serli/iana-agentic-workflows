@@ -335,7 +335,7 @@ C'est ici que vous pouvez configurer :
 - **Read-only / accès restreint** ;
 - **Métadonnées** (utiles plus tard pour les budgets).
 
-vérifiez bien que le nom de la route `IANA RAG Simple API` apparait bien dans la section `Authorized on`
+vérifiez bien que le nom de la route `IANA RAG Simple API` apparait bien dans la section `Authorized on`.
 
 ## Étape 2.2 — Tester l'API
 
@@ -352,6 +352,18 @@ Content-Type: application/json
 {
   "query": "quelles sont mes garanties d'assurance ?"
 }
+```
+
+par exemple:
+
+```sh
+curl --request POST \
+  --url '<URL-exposition-otoroshi>/api' \
+  --header 'authorization: Bearer <apikey_bearer>' \
+  --header 'content-type: application/json' \
+  --data '{
+  "query": "quelles sont mes garanties d'\''assurance ?"
+}'
 ```
 
 ![Test de l'API — entête](./images/09-call-api-1.png)
