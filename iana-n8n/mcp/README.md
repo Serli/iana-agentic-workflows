@@ -1,8 +1,6 @@
-# 🔌 Guide Utilisateur - Serveur MCP IANA RAG
+# 🔌 Serveur MCP IANA RAG
 
-Ce guide explique comment configurer, lancer et intégrer le **Serveur MCP IANA RAG** avec vos clients IA préférés (tels que Claude Desktop ou Cursor). 
-
-Le serveur MCP (Model Context Protocol) agit comme une passerelle sécurisée entre un agent d'intelligence artificielle et l'API backend RAG de l'AtelierIANA. Il permet à l'IA d'interroger directement votre base de connaissances en temps réel pendant vos conversations.
+Ce répertoire contient le **Serveur MCP IANA RAG**, qui agit comme une passerelle sécurisée entre un agent d'intelligence artificielle (comme Claude Desktop ou Cursor) et l'API backend RAG de l'AtelierIANA. Il permet à l'IA d'interroger directement votre base de connaissances en temps réel pendant vos conversations à l'aide du protocole MCP (Model Context Protocol).
 
 ---
 
@@ -44,7 +42,7 @@ L'architecture s'organise selon le schéma suivant :
 Avant de lancer le serveur MCP, assurez-vous d'avoir :
 
 1.  **Python** version `>= 3.10` installé.
-2.  Le **Backend RAG** démarré et fonctionnel à l'adresse **`http://localhost:8000`** (voir le [Guide Utilisateur Backend](../backend/USER_GUIDE.md)).
+2.  Le **Backend RAG** démarré et fonctionnel à l'adresse **`http://localhost:8000`** (voir le [README Backend](../backend/README.md)).
 3.  Installé les paquets requis pour le serveur MCP :
     ```bash
     pip install fastmcp httpx
@@ -96,7 +94,7 @@ Pour donner à l'application officielle Claude Desktop l'accès à votre base de
     "iana-rag": {
       "command": "python",
       "args": [
-        "c:/Users/revel/OneDrive/Desktop/AtelierIANA/mcp/mcp_server.py"
+        "/chemin/vers/le/projet/iana-n8n/mcp/mcp_server.py"
       ],
       "env": {
         "BACKEND_URL": "http://localhost:8000"
@@ -115,7 +113,7 @@ Pour ajouter le serveur MCP dans l'éditeur Cursor :
 3.  Configurez les champs comme suit :
     *   **Name** : `IANA RAG`
     *   **Type** : `command` (si lancé directement) ou `sse` (si le serveur tourne déjà en arrière-plan)
-    *   **Command** : `python c:/Users/revel/OneDrive/Desktop/AtelierIANA/mcp/mcp_server.py`
+    *   **Command** : `python /chemin/vers/le/projet/iana-n8n/mcp/mcp_server.py`
 4.  Cliquez sur **Save**. L'outil apparaîtra instantanément dans le panneau de chat Cursor !
 
 ---
@@ -139,4 +137,4 @@ Pour ajouter le serveur MCP dans l'éditeur Cursor :
 ### 🔴 Commande `python` introuvable dans la configuration du client IA
 *   **Cause** : Le client IA n'arrive pas à résoudre l'exécutable `python`.
 *   **Solution** : Remplacez `"command": "python"` par le chemin absolu de votre exécutable Python (ou celui de votre environnement virtuel) dans le fichier de configuration. Exemple :
-    *   `"C:\\Users\\revel\\OneDrive\\Desktop\\AtelierIANA\\.venv\\Scripts\\python.exe"`
+    *   `"/chemin/vers/le/projet/iana-n8n/.venv/bin/python"` (macOS/Linux) ou `"/chemin/vers/le/projet/iana-n8n/.venv/Scripts/python.exe"` (Windows)

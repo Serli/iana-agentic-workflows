@@ -1,6 +1,6 @@
-# 🚀 Guide Utilisateur - Kreuzberg RAG API (Backend)
+# 🚀 API RAG Kreuzberg (Backend)
 
-Bienvenue dans le guide utilisateur officiel du backend de **AtelierIANA**. Ce service fournit une API RAG (Retrieval-Augmented Generation) de haute performance, utilisant **FastAPI**, **Kreuzberg** (pour l'extraction de texte de haute qualité et la génération d'embeddings multilingues) et **ChromaDB** (pour le stockage et la recherche vectorielle).
+Ce répertoire contient le backend de **AtelierIANA**, qui fournit une API RAG (Retrieval-Augmented Generation) de haute performance. Il utilise **FastAPI**, **Kreuzberg** (pour l'extraction de texte de haute qualité et la génération d'embeddings multilingues) et **ChromaDB** (pour le stockage et la recherche vectorielle).
 
 ---
 
@@ -28,7 +28,7 @@ Lorsqu'une question est posée au système, elle est convertie en vecteur de la 
 
 Pour exécuter le backend localement, vous devez disposer des éléments suivants :
 
-*   **Python** : Version `>= 3.12` installée.
+*   **Python** : Version `>= 3.12` instée.
 *   **Dépendances principales** :
     *   `fastapi` (Framework de développement API)
     *   `uvicorn` (Serveur web ASGI pour exécuter FastAPI)
@@ -185,7 +185,7 @@ backend/
 ├── rag_service.py     # Cœur logique : Intégration Kreuzberg, calcul des similarités et requêtes ChromaDB.
 ├── schemas.py         # Modèles de données Pydantic définissant la structure des requêtes et réponses API.
 ├── test_rag.py        # Suite de tests ou script utilitaire pour valider le bon fonctionnement de la base RAG.
-└── USER_GUIDE.md      # Ce guide d'utilisation.
+└── README.md          # Ce fichier README (documentation du backend).
 ```
 
 ---
