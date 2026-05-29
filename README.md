@@ -11,6 +11,19 @@ L'atelier se découpera en trois sous-parties :
 
 ---
 
+## 📋 Sommaire
+
+- [Partie 1 : Contexte](#partie-1--contexte)
+  - [De l'IA Générative à l'IA Agentique](#de-lia-générative-à-lia-agentique)
+  - [Le Renouveau par la GenAI](#le-renouveau-par-la-genai)
+  - [Les Composantes Clés d'un Agent IA](#les-composantes-clés-dun-agent-ia)
+  - [Standardisation et Mise en Œuvre](#standardisation-et-mise-en-œuvre)
+- [Partie 2 : iana-n8n](#partie-2--iana-n8n)
+- [Partie 3 : iana-otoroshi](#partie-3--iana-otoroshi)
+- [📁 Structure du Projet](#-structure-du-projet)
+
+---
+
 ## Partie 1 : Contexte
 
 ### **De l'IA Générative à l'IA Agentique**
