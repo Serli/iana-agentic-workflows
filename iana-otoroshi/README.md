@@ -290,7 +290,7 @@ Cliquez ensuite sur le bouton **▶ Play** en bas à droite. Vous devriez obteni
 
 ## Étape 2.1 — Exposer le workflow en API REST
 
-> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ Add item`
+> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ + Create new route`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/routes`
 
@@ -307,7 +307,7 @@ Dans le designer de la route, configurez ces plugins :
 
 | Plugin | Rôle |
 | --- | --- |
-| **Override host header** | force le `Host` côté backend |
+| **Override host header** | force le `Host` côté backend, déjà ajouté par défaut |
 | **Workflow Backend** | court-circuite le backend HTTP et exécute le workflow `IANA RAG simple` |
 | **Apikeys** | rend la route accessible uniquement via clé d'API |
 | **Send otoroshi headers back** | ajoute les en-têtes `otoroshi-*` à la réponse |
@@ -318,6 +318,10 @@ Pour le plugin **Workflow Backend**, sélectionnez `IANA RAG simple` comme workf
 
 ### Créer une clé d'API
 
+> `Page de la route ▸ Sidebar ▸ Apikeys ▸ Add item`
+>
+> ou 
+>
 > `Sidebar ▸ Categories ▸ Manage resources ▸ Apikeys ▸ Add item`
 >
 > URL : `<URL-backoffice-otoroshi>/bo/dashboard/apikeys`
@@ -330,6 +334,8 @@ C'est ici que vous pouvez configurer :
 - **Throttling** (rate limiting) ;
 - **Read-only / accès restreint** ;
 - **Métadonnées** (utiles plus tard pour les budgets).
+
+vérifiez bien que le nom de la route `IANA RAG Simple API` apparait bien dans la section `Authorized on`
 
 ## Étape 2.2 — Tester l'API
 
