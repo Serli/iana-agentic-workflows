@@ -50,6 +50,9 @@ Chaque participant dispose d'une **instance [n8n](https://n8n.io/)** et d'une **
 | n8n | `https://n8n-workshop-iana-2026-${slug}.cleverapps.io/` |
 | Backoffice Otoroshi | `https://${clever_random}-ui-otoroshi.services.clever-cloud.com` |
 | Exposition des APIs / MCP via Otoroshi | `https://otoroshi-workshop-iana-2026-${slug}.cleverapps.io` |
+| RAG API | `https://rag-api-workshop-iana-2026-${slug}.cleverapps.io` |
+| RAG MCP | `https://rag-mcp-workshop-iana-2026-${slug}.cleverapps.io` |
+| RAG Frontend | `https://rag-frontend-workshop-iana-2026-${slug}.cleverapps.io` |
 
 - `${slug}` est unique par participant (par exemple `00`, `01`, etc.).
 - `${clever_random}` est généré automatiquement par Clever Cloud lors du provisionnement de votre instance.
@@ -193,7 +196,9 @@ Renseignez :
 | **Enabled** | ✅ |
 | **Pool size** | `1` |
 | **Transport kind** | `HTTP` |
-| **URL** | `https://rag-mcp-iana-agentic-workflows-workshop.cleverapps.io/mcp` |
+| **URL** | `https://rag-mcp-iana-agentic-workflows-workshop.cleverapps.io/mcp` ou `http://127.0.0.1:10000/mcp` |
+
+> 💡 Si votre infrastructure RAG a été provisionnée sur **Clever Cloud** (RAG API / MCP / frontend dédiés), utilisez plutôt votre URL : `https://rag-mcp-workshop-iana-2026-${slug}.cleverapps.io/mcp`. Sinon, l'instance partagée ci-dessus reste utilisable.
 
 ![Création du connecteur MCP RAG](./images/01-create-rag-mcp-connector.png)
 
