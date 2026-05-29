@@ -363,6 +363,7 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{
   "query": "quelles sont mes garanties d'\''assurance ?"
+
 }'
 ```
 
@@ -384,7 +385,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 | Champ | Valeur |
 | --- | --- |
 | **Name** | `get_insurance_report` |
-| **Description** | `Return insurance_report based on legal insurance documents. Needs a 'query' parameter and returns a 'report' about it` |
+| **Description** | **`Return insurance_report based on legal insurance documents. Needs a 'query' parameter and returns a 'report' about it`** (très important ne pas zapper ;) ) |
 | **Strict** | ✅ |
 | **Backend Kind** | `Workflow` |
 | **Workflow** | `IANA RAG simple` |
