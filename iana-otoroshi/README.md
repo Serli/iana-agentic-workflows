@@ -385,7 +385,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 | Champ | Valeur |
 | --- | --- |
 | **Name** | `get_insurance_report` |
-| **Description** | **`Return insurance_report based on legal insurance documents. Needs a 'query' parameter and returns a 'report' about it`** (très important ne pas zapper ;) ) |
+| **Description** | **`Return insurance_report based on legal insurance documents. Needs a 'query' parameter and returns a 'report' about it`** (très important, ne pas zapper ;) ) |
 | **Strict** | ✅ |
 | **Backend Kind** | `Workflow` |
 | **Workflow** | `IANA RAG simple` |
@@ -396,7 +396,7 @@ Pour pouvoir « brancher » d'autres agents ou IDE (Claude Desktop, Cursor, MCP 
 
 ### Créer la route d'exposition MCP
 
-> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ Add item`
+> `Sidebar ▸ Categories ▸ Manage resources ▸ HTTP Routes ▸ + Create new route`
 
 Créez une route nommée **`IANA RAG Simple MCP`** :
 
@@ -413,10 +413,6 @@ Configurez le plugin `Cloud APIM - MCP HTTP Endpoint` :
 - **Emit audit events** : ✅
 
 > 💡 Vous pouvez wrapper plusieurs `Tool Functions` et/ou des `MCP Connectors` complets derrière une seule route MCP : c'est ce qui vous permet d'agréger plusieurs sources métier en un MCP unique.
-
-### Protection par clé d'API
-
-Pour la première exposition MCP, on protège la route via une simple clé d'API : ajoutez le plugin **`Apikeys`** comme pour la route REST.
 
 ### Tester avec MCP Inspector
 
@@ -563,6 +559,7 @@ Une fois le second provider créé, retournez sur le provider `IANA Clever AI` e
 | **Name** | `IANA Risques majeurs` |
 | **Enabled** | ✅ |
 | **Transport kind** | `HTTP` |
+| **Strict tools call** | ❌ |
 | **URL** | `https://risques-majeurs-mcp.serliapps.dev/mcp` |
 
 ![Création du connecteur Risques majeurs](./images/24-create-risques-majeurs-mcp-connector.png)
@@ -613,10 +610,7 @@ Après l'agent, on ajoute un nœud `HTTP client` (catégorie `Networking`) qui p
 - **URL** : `https://md-to-pdf-iana.cleverapps.io/convert-and-store`
 - **Method** : `POST`
 - **Headers** : `Content-Type: application/json`
-- **Body** :
-  ```json
-  { "markdown": "${agent_result}" }
-  ```
+- **Body JSON** : `markdown`:`${agent_result}`
 - **Response selector** : `body_json.url`
 - **Result** : `pdf_link`
 
