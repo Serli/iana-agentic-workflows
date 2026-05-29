@@ -1,6 +1,6 @@
 # 🤖 Workflows Agentiques
 
-> 🚀 **Atelier Pratique IANA 2026** (IA en Nouvelle Aquitaine)  
+> 🚀 **Atelier Pratique IANA 2026** (IA en Nouvelle Aquitaine)
 > *Passer du No-Code à l'échelle industrielle avec MCP et Otoroshi-LLM*
 
 Ce répertoire contient toutes les ressources, codes sources et guides pas-à-pas pour suivre et reproduire les exercices de l'atelier.
@@ -11,22 +11,19 @@ Ce répertoire contient toutes les ressources, codes sources et guides pas-à-pa
 
 L'atelier est structuré en trois grandes étapes progressives :
 
-* **[Concept] Partie 1 : Contexte**  
-  Une introduction générale sur les concepts d'**agents IA** et sur la nécessité d'introduire des standards de communication universels comme le protocole **MCP** pour étendre leurs fonctionnalités.
-* **[No-Code / Low-Code] Partie 2 : [iana-n8n](./iana-n8n)**  
-  Mise en œuvre pratique avec le framework **n8n** pour créer rapidement des agents conversationnels et les connecter à des services tiers (RAG local) via MCP, **sans écrire une seule ligne de code**.
-* **[Production / Industrie] Partie 3 : [iana-otoroshi](./iana-otoroshi)**  
+* **[Concept] Partie 1 : Contexte**Une introduction générale sur les concepts d'**agents IA** et sur la nécessité d'introduire des standards de communication universels comme le protocole **MCP** pour étendre leurs fonctionnalités.
+* **[No-Code / Low-Code] Partie 2 : [iana-n8n](./iana-n8n)**Mise en œuvre pratique avec le framework **n8n** pour créer rapidement des agents conversationnels et les connecter à des services tiers (RAG local) via MCP, **sans écrire une seule ligne de code**.
+* **[Production / Industrie] Partie 3 : [iana-otoroshi](./iana-otoroshi)**
   Industrialisation dans un contexte d'entreprise pour **exposer et sécuriser** des agents et des services MCP grâce à la puissance d'**Otoroshi** et de son extension LLM (gestion d'API, sécurité, budgets, observabilité, guardrails).
 
 ---
 
-
 ## 📋 Sommaire
 
 - [Partie 1 : Contexte](#partie-1--contexte)
-  - [De l'IA Générative à l'IA Agentique](#de-lia-générative-à-lia-agentique)
+  - [De l&#39;IA Générative à l&#39;IA Agentique](#de-lia-générative-à-lia-agentique)
   - [Le Renouveau par la GenAI](#le-renouveau-par-la-genai)
-  - [Les Composantes Clés d'un Agent IA](#les-composantes-clés-dun-agent-ia)
+  - [Les Composantes Clés d&#39;un Agent IA](#les-composantes-clés-dun-agent-ia)
   - [Standardisation et Mise en Œuvre](#standardisation-et-mise-en-œuvre)
 - [Partie 2 : iana-n8n](#partie-2--iana-n8n)
 - [Partie 3 : iana-otoroshi](#partie-3--iana-otoroshi)
@@ -38,9 +35,9 @@ L'atelier est structuré en trois grandes étapes progressives :
 
 ### **De l'IA Générative à l'IA Agentique**
 
-Historiquement, l'Intelligence Artificielle est passée des simples chatbots qui répondaient aux questions sans contexte (hier) aux agents IA autonomes qui anticipent les besoins via la planification, la négociation et la stratégie (aujourd'hui)**.** **Ces agents transforment la productivité, notamment dans le développement et la santé, mais que...**.
+Historiquement, l'Intelligence Artificielle est passée des simples chatbots qui répondaient aux questions sans contexte (hier) aux agents IA autonomes qui anticipent les besoins via la planification, la négociation et la stratégie (aujourd'hui)**.** **Ces agents transforment la productivité, notamment dans le développement et la santé, mais pas que...**
 
-La notion d'agent, définie par Jacques Ferber en 1995, est une entité capable d'agir dans un environnement, de percevoir, de communiquer et d'avoir un comportement autonome**.** **Ses trois piliers sont la capacité à être**  **Proactif** **,** **Réactif** **et**  **Social** **.**
+La notion d'agent, définie par Jacques Ferber en 1995, est une entité capable d'agir dans un environnement, de percevoir, de communiquer et d'avoir un comportement autonome. **Ses trois piliers sont la capacité à être**  **Proactif** **,** **Réactif** **et**  **Social** **.**
 
 La notion d'agent a connu un déclin entre 2000 et 2010 à cause de la complexité des systèmes multi-agents (SMA), du manque d'applications grand public, des limites techniques d'échelle et d'un changement de paradigme vers le Machine Learning.
 
@@ -48,7 +45,7 @@ La notion d'agent a connu un déclin entre 2000 et 2010 à cause de la complexit
 
 Le renouveau de l'approche agentique est propulsé par l'IA Générative (GenAI)**.** **Contrairement aux anciens agents programmés manuellement, un Modèle de Langage de Grande Taille (LLM) peut désormais générer dynamiquement des plans, raisonner et s'adapter sans règles prédéfinies**.
 
-L'IA Générative seule présente toutefois des limites :* **Réactivité limitée** **: Elle agit uniquement en réponse à une entrée externe**.
+L'IA Générative seule présente toutefois des limites : **Réactivité limitée** **: Elle agit uniquement en réponse à une entrée externe**.
 
 * **Absence de mémoire** **: Elle ne conserve pas le contexte sans apport explicite**.
 * **Dépendance au prompt** **: Les réponses sont entièrement guidées par l'utilisateur**.
