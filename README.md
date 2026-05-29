@@ -134,7 +134,6 @@ iana-agentic-workflows/
 │   ├── scripts_n8n/          # Fichiers JSON des workflows n8n
 │   └── README.md             # Guide d'installation/lancement du RAG
 └── iana-otoroshi/            # Partie 3 : Industrialisation & Sécurité (Otoroshi)
-    └── instructions/         # Guide pas-à-pas et ressources du workshop
-        ├── manifests/        # Définitions JSON des entités Otoroshi à importer
-        └── README.md         # Guide détaillé du workshop Otoroshi
+    ├── manifests/            # Définitions JSON des entités Otoroshi à importer
+    └── README.md             # Guide détaillé du workshop Otoroshi
 ```
