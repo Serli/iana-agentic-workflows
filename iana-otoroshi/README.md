@@ -244,12 +244,14 @@ Ajoutez un nœud `AI Agent` (ne **surtout** pas prendre `AI Agent (function)`) e
 
 ### Nœud `MCP Tools`
 
-Sur le nœud `AI Agent`, cliquez sur **`Add tool +`** et choisissez **`MCP Tools`**. Configurez :
+Ajoutez un noeud **`MCP Tools`** dans le workflow. Configurez :
 
 - **Description** : `Serveur MCP permettant de rechercher dans des contrats d'assurance`
 - **MCP Connectors** : `IANA RAG`
 
 ![Configuration du nœud MCP Tools](./images/05-mcp-tool-node.png)
+
+Sur le nœud `AI Agent`, cliquez sur **`Add tool +`** et linkez le noeud **`MCP Tools`**. 
 
 ### Nœud `Returned`
 
