@@ -194,6 +194,7 @@ Renseignez :
 | --- | --- |
 | **Name** | `IANA RAG` |
 | **Enabled** | ✅ |
+| **Strict tool calls** | ❌ |
 | **Pool size** | `1` |
 | **Transport kind** | `HTTP` |
 | **URL** | `https://rag-mcp-iana-agentic-workflows-workshop.cleverapps.io/mcp` ou `http://127.0.0.1:10000/mcp` |
@@ -251,6 +252,8 @@ Ajoutez un noeud **`MCP Tools`** dans le workflow. Configurez :
 
 ![Configuration du nœud MCP Tools](./images/05-mcp-tool-node.png)
 
+Connectez le noeud `Start` au noeud `AI Agent`.
+
 Sur le nœud `AI Agent`, cliquez sur **`Add tool +`** et linkez le noeud **`MCP Tools`**. 
 
 ### Nœud `Returned`
@@ -262,6 +265,8 @@ Configurez la sortie du workflow :
   "report": "${agent_result}"
 }
 ```
+
+puis connectez la sortie du noeud `AI Agent` au noeud `Returned`;
 
 ![Configuration du nœud Returned](./images/06-returned-node.png)
 
