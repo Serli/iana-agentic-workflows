@@ -47,8 +47,8 @@ La notion d'agent a connu un déclin entre 2000 et 2010 à cause de la complexit
 
 Le renouveau de l'approche agentique est propulsé par l'IA Générative (GenAI)**.** **Contrairement aux anciens agents programmés manuellement, un Modèle de Langage de Grande Taille (LLM) peut désormais générer dynamiquement des plans, raisonner et s'adapter sans règles prédéfinies**.
 
-L'IA Générative seule présente toutefois des limites : **Réactivité limitée** **: Elle agit uniquement en réponse à une entrée externe**.
-
+L'IA Générative seule présente toutefois des limites : 
+* **Réactivité limitée** **: Elle agit uniquement en réponse à une entrée externe**.
 * **Absence de mémoire** **: Elle ne conserve pas le contexte sans apport explicite**.
 * **Dépendance au prompt** **: Les réponses sont entièrement guidées par l'utilisateur**.
 
