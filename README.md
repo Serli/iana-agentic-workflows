@@ -11,8 +11,10 @@ Ce répertoire contient toutes les ressources, codes sources et guides pas-à-pa
 
 L'atelier est structuré en trois grandes étapes progressives :
 
-* **[Concept] Partie 1 : Contexte**Une introduction générale sur les concepts d'**agents IA** et sur la nécessité d'introduire des standards de communication universels comme le protocole **MCP** pour étendre leurs fonctionnalités.
-* **[No-Code / Low-Code] Partie 2 : [iana-n8n](./iana-n8n)**Mise en œuvre pratique avec le framework **n8n** pour créer rapidement des agents conversationnels et les connecter à des services tiers (RAG local) via MCP, **sans écrire une seule ligne de code**.
+* **[Concept] Partie 1 : Contexte**
+  Une introduction générale sur les concepts d'**agents IA** et sur la nécessité d'introduire des standards de communication universels comme le protocole **MCP** pour étendre leurs fonctionnalités.
+* **[No-Code / Low-Code] Partie 2** : [iana-n8n
+  ](./iana-n8n)Mise en œuvre pratique avec le framework **n8n** pour créer rapidement des agents conversationnels et les connecter à des services tiers (RAG local) via MCP, **sans écrire une seule ligne de code**.
 * **[Production / Industrie] Partie 3 : [iana-otoroshi](./iana-otoroshi)**
   Industrialisation dans un contexte d'entreprise pour **exposer et sécuriser** des agents et des services MCP grâce à la puissance d'**Otoroshi** et de son extension LLM (gestion d'API, sécurité, budgets, observabilité, guardrails).
 
