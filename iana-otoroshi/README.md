@@ -607,6 +607,8 @@ Un nœud pointe sur `IANA RAG` (contrats), l'autre sur `IANA Risques majeurs` (r
 
 Après l'agent, on ajoute un nœud `HTTP client` (catégorie `Networking`) qui prend le rapport markdown produit par l'agent et appelle un service de conversion PDF. Le lien public vers le PDF généré est ensuite remonté dans le résultat du workflow.
 
+> 💡 Le code de ce service de conversion (markdown → PDF, transformation et stockage) est disponible ici : [github.com/Serli/markdown-to-pdf-api](https://github.com/Serli/markdown-to-pdf-api).
+
 - **URL** : `https://md-to-pdf-iana.cleverapps.io/convert-and-store`
 - **Method** : `POST`
 - **Headers** : `Content-Type: application/json`
